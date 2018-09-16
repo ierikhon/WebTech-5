@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetris</title>
+    <link rel='stylesheet' type="text/css" href='../css/tetris.css'/>
+</head>
+<body>
+
+<div id="main">
+    <div id="left">
+        <div id="head" align="center">
+            TETRIS
+        </div>
+        <div id = "texts">
+            <div id="rules">
+                Arrow Up - turn<br>
+                Arrow Left/Right - move<br>
+                Arrow Down - down<br>
+            </div>
+            <div id="info">
+            </div>
+            <button type="button" onclick="resetRecords()">Reset records</button>
+            <button type="button" onclick="gameOver()">Finish game</button>
+        </div>
+        <div id="next">
+            Next figure: <br>
+            <canvas id="nextfigure"></canvas>
+        </div>
+    </div>
+    <div id="right">
+        <canvas id="tetrisfield"></canvas>
+    </div>
+</div>
+
+</body>
+<script src="../src/canvas.js"></script>
+<script src="../src/figure.js"></script>
+<script src="../src/tetris.js"></script>
+</html>
