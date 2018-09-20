@@ -93,6 +93,7 @@ function saveFigure() {
     }
 }
 
+
 function newFigure() {
     let fig = next_figure;
     next_figure = Figure.makeFigure(Math.floor(Math.random() * 7));
