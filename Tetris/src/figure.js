@@ -20,6 +20,8 @@ class Figure {
         }
         for (let i = 0; i < 16; i+=4){
             res.push(bin.substring(i, i+4).split("").reverse());
+            for (let j = 0; j < 4; j++)
+                res[i/4][j] = parseInt(res[i/4][j]);
         }
         return res;
     }

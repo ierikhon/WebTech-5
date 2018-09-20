@@ -143,12 +143,10 @@ function checkLines() {
         }
     }
     if (remove) {
-        document.getElementById("line").play();
         lines++;
         lines_level++;
         score = score + level * 100;
         if (lines_level > 10){
-            document.getElementById("level_up").play();
             lines_level = 0;
             level++;
             startRender(1000/level);
