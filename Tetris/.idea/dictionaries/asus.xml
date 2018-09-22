@@ -1,10 +1,12 @@
 <component name="ProjectDictionaryState">
   <dictionary name="asus">
     <words>
+      <w>keydown</w>
       <w>loginscreen</w>
       <w>matr</w>
       <w>nextfigure</w>
       <w>nginx</w>
+      <w>onreadystatechange</w>
       <w>piskunov</w>
       <w>tetris</w>
       <w>tetrisfield</w>
