@@ -19,6 +19,7 @@ var level;
 
 function startGame()
 {
+    localStorage["tetris.gamePlayed"] = 'true';
     deletedLines = 0;
     multiplier = 1;
     score = 0;
