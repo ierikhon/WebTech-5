@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Tetris by Piskunov</title>
+    <link rel='stylesheet' type="text/css" href='../css/records.css'/>
 </head>
 <body>
-    <button type="button" onclick="resetRecords()">Reset Records</button>
-    <div id="recTable"></div>
+    <div id="Parent">
+        <div id="Child">
+            <button type="button" onclick="resetRecords()">Reset Records</button>
+            <div id="recTable"></div>
+        </div>
+    </div>
 </body>
 <script src="../src/recordsUpdate.js"></script>
 </html>
