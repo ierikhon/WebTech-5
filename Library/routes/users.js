@@ -11,7 +11,6 @@ for (let key in books)
     booksMas.push(books[key]);
 }
 
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.render('books', {jfile: booksMas});

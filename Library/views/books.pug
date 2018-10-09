@@ -1,4 +1,22 @@
 extends layout
 
 block content
-    h1 Передано #{jfile}
+    table(border="3" width="100%")
+        tr
+            th Author
+            th Name
+            th Release date
+            th Return date
+            th In stock
+            th Taken
+            th Direct Link
+        -for (let i=0; i<jfile.length; i++)
+            tr
+                th #{jfile[i].author}
+                th #{jfile[i].name}
+                th #{jfile[i].datarel}
+                th #{jfile[i].datareturn}
+                th #{jfile[i].stock}
+                th #{jfile[i].taken.date} by #{jfile[i].pers}
+                th
+                    a(href='') Link
