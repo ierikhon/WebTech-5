@@ -1,22 +1,27 @@
 extends layout
 
 block content
-    table(border="3" width="100%")
-        tr
-            th Author
-            th Name
-            th Release date
-            th Return date
-            th In stock
-            th Taken
-            th Direct Link
-        -for (let i=0; i<jfile.length; i++)
+    div(class='w3-dsplay-container')
+        p(class='w3-display-topmiddle w3-xxxlarge w3-myfont') Library Data Base
+        table(border="3" width="60%" class='w3-display-middle w3-table w3-striped')
             tr
-                th #{jfile[i].author}
-                th #{jfile[i].name}
-                th #{jfile[i].datarel}
-                th #{jfile[i].datareturn}
-                th #{jfile[i].stock}
-                th #{jfile[i].taken.date} by #{jfile[i].pers}
-                th
-                    a(href='') Link
+                th(class='w3-center') Author
+                th(class='w3-center') Name
+                th(class='w3-center') Release date
+                th(class='w3-center')
+                    p Return date
+                    button(class='w3-btn w3-ripple w3-green') Sort by Return Date
+                th(class='w3-center')
+                    p In stock
+                    button(class='w3-btn w3-ripple w3-green') Sort("In stock" first)
+                th(class='w3-center')
+            -for (let i=0; i<jfile.length; i++)
+                tr
+                    th(class='w3-center') #{jfile[i].author}
+                    th(class='w3-center') #{jfile[i].name}
+                    th(class='w3-center') #{jfile[i].datarel}
+                    th(class='w3-center') #{jfile[i].datareturn}
+                    th(class='w3-center') #{jfile[i].stock}
+                    th(class='w3-center')
+                        form(method='post')
+                            a(href='/users/'+i class='w3-btn w3-ripple w3-green') Show info

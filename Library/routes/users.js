@@ -15,5 +15,9 @@ for (let key in books)
 router.get('/', function(req, res, next) {
   res.render('books', {jfile: booksMas});
 });
+router.get("/:num", function(req, res, next) {
+    const id = req.params.num;
+    res.render('bookInfo', {bookid: id});
+});
 
 module.exports = router;
