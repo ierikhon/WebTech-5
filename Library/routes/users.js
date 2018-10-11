@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 });
 router.get("/:num", function(req, res, next) {
     const id = req.params.num;
-    res.render('bookInfo', {bookid: id});
+    res.render('bookInfo', {book: booksMas[id]});
 });
 
 module.exports = router;

@@ -1,14 +1,18 @@
-{
-  "0":{"name":"Цитрон",
-  "author":"Владимир",
-  "datarel":"1235",
-  "datareturn":"03.10.2018",
-  "stock":"Yes",
-  "taken":{"date":"","pers":""}},
-  "1":{"name":"Цитрон2",
+[
+  {
+      "name":"Цитрон",
+    "author":"Владимир",
+    "datarel":"2000-01-01",
+    "datareturn":"03-10-2018",
+    "stock":"No",
+    "taken":{"date":"2018-10-11","pers":"Yarik"}
+  },
+  {
+    "name":"Цитрон2",
     "author":"Владимир2",
-    "datarel":"1235",
-    "datareturn":"03.10.2018",
+    "datarel":"2000-01-01",
+    "datareturn":"03-10-2018",
     "stock":"Yes",
-    "taken":{"date":"","pers":""}}
-}
+    "taken":{"date":"","pers":""}
+  }
+]
