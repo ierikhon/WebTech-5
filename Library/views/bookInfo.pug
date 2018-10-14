@@ -13,8 +13,10 @@ block content
                     span Add book
         if (book["stock"]==="No")
             button(class='w3-btn w3-ripple w3-green', onclick="document.getElementById('reader_dialog_r').style.display = 'block'") Show Reader Info
+            a(class='w3-btn w3-ripple w3-green', href='/users') Back to main table
         else
             button(class='w3-btn w3-ripple w3-green w3-disabled') Show Reader Info
+            a(class='w3-btn w3-ripple w3-green', href='/users') Back to main table
         form(class='w3-border w3-margin' style="width:50%")
             div(class='w3-container w3-green w3-margin-bottom') Edit book info
             div(class='w3-container')
