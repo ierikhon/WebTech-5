@@ -7,15 +7,17 @@ block content
             a(class='w3-btn w3-ripple w3-green' href='/users/new') Add book
         table(border="3" width="60%" class='w3-display-middle w3-table w3-striped')
             tr
-                th(class='w3-center') Author
-                th(class='w3-center') Name
-                th(class='w3-center') Release date
+                th(class='w3-center')
+                    p Author
+                th(class='w3-center')
+                    p Name
+                th(class='w3-center')
+                    p Release date
                 th(class='w3-center')
                     p Return date
-                    button(class='w3-btn w3-ripple w3-green') Sort by Return Date
+                    button(class='w3-btn w3-ripple w3-green' onclick='sort()') Sort by Return Date
                 th(class='w3-center')
                     p In stock
-                    button(class='w3-btn w3-ripple w3-green') Sort("In stock" first)
                 th(class='w3-center')
             -for (let i=0; i<jfile.length; i++)
                 tr
@@ -26,3 +28,4 @@ block content
                     th(class='w3-center') #{jfile[i].stock}
                     th(class='w3-center')
                         a(href='/users/'+i class='w3-btn w3-ripple w3-green') Show info
+    script(src='../javascripts/scriptsMain.js')

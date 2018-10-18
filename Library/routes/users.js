@@ -68,6 +68,32 @@ router.get('/', function(req, res, next) {
   res.render('books', {jfile: booksMas});
   //next();
 });
+
+router.post('/', function(req, res, next) {
+    let newBookMas = [];
+    let otherBookMas = [];
+    for (let i in booksMas)
+    {
+        if (booksMas[i]["stock"] === "Yes")
+            newBookMas.push(booksMas[i])
+    }
+    for (let i in booksMas)
+    {
+        if (booksMas[i]["stock"] === "No")
+        {
+            otherBookMas.push(booksMas[i]);
+        }
+    }
+    otherBookMas.sort(function (a, b) {
+        return new Date(a["datareturn"]).valueOf() - new Date(b["datareturn"]).valueOf();
+    });
+    for (let i in otherBookMas)
+        newBookMas.push(otherBookMas[i]);
+    booksMas = newBookMas;
+    res.json(responseOK());
+    //next();
+});
+
 router.get("/:num([0-9]{1,})", function(req, res, next) {
     const id = req.params.num;
     res.render('bookInfo', {book: booksMas[id], id: id});
