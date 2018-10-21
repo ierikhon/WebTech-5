@@ -115,7 +115,9 @@ block content
                 newBookInfo["taken"]["date"] = today.getFullYear() + "-" + month + "-" + day;
             }
 
-            externalSave(newBookInfo);
+            if (type === "give" && new Date(newBookInfo["datareturn"]).valueOf() < new Date().valueOf())
+                alert("return earlier than today");
+            else externalSave(newBookInfo);
         }
 
 

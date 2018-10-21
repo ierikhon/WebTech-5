@@ -2,30 +2,31 @@ extends layout
 
 block content
     div(class='w3-dsplay-container')
-        div(class='w3-display-topmiddle' align='center')
+        div(class='w3-top w3-red' align='center')
             p(class='w3-xxxlarge w3-myfont') Library Data Base
             a(class='w3-btn w3-ripple w3-green' href='/users/new') Add book
-        table(border="3" width="60%" class='w3-display-middle w3-table w3-striped')
-            tr
-                th(class='w3-center')
-                    p Author
-                th(class='w3-center')
-                    p Name
-                th(class='w3-center')
-                    p Release date
-                th(class='w3-center')
-                    p Return date
-                    button(class='w3-btn w3-ripple w3-green' onclick='sort()') Sort by Return Date
-                th(class='w3-center')
-                    p In stock
-                th(class='w3-center')
-            -for (let i=0; i<jfile.length; i++)
+        div(class='w3-container' style='margin-top:225px')
+            table(border="3" width="60%" class='w3-table w3-striped')
                 tr
-                    th(class='w3-center') #{jfile[i].author}
-                    th(class='w3-center') #{jfile[i].name}
-                    th(class='w3-center') #{jfile[i].datarel}
-                    th(class='w3-center') #{jfile[i].datareturn}
-                    th(class='w3-center') #{jfile[i].stock}
                     th(class='w3-center')
-                        a(href='/users/'+i class='w3-btn w3-ripple w3-green') Show info
+                        p Author
+                    th(class='w3-center')
+                        p Name
+                    th(class='w3-center')
+                        p Release date
+                    th(class='w3-center')
+                        p Return date
+                        button(class='w3-btn w3-ripple w3-green' onclick='sort()') Sort by Return Date
+                    th(class='w3-center')
+                        p In stock
+                    th(class='w3-center')
+                -for (let i=0; i<jfile.length; i++)
+                    tr
+                        th(class='w3-center') #{jfile[i].author}
+                        th(class='w3-center') #{jfile[i].name}
+                        th(class='w3-center') #{jfile[i].datarel}
+                        th(class='w3-center') #{jfile[i].datareturn}
+                        th(class='w3-center') #{jfile[i].stock}
+                        th(class='w3-center')
+                            a(href='/users/'+i class='w3-btn w3-ripple w3-green') Show info
     script(src='../javascripts/scriptsMain.js')
