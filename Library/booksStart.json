@@ -1,0 +1,27 @@
+[
+  {
+    "name":"Кормак Маккарти",
+    "author":"Дорога",
+    "datarel":"2006-09-26",
+    "datareturn":"2018-11-11",
+    "stock":"No",
+    "taken":{"date":"2018-10-11","pers":"Yarik"}
+  },
+  {
+    "name":"Нил Стивенсон",
+    "author":"Анафем",
+    "datarel":"2008-09-09",
+    "datareturn":"",
+    "stock":"Yes",
+    "taken":{"date":"","pers":""}
+  },
+
+  {
+    "name":"Евгений Замятин",
+    "author":"Мы",
+    "datarel":"1924-09-26",
+    "datareturn":"2018-11-10",
+    "stock":"No",
+    "taken":{"date":"2018-10-11","pers":"Yarik"}
+  }
+]
