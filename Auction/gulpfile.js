@@ -20,11 +20,29 @@ const styles = () => {
             dirname: 'css',
             suffix: '.min'
         }))
-        .pipe(gulp.dest('build/'));
+        .pipe(gulp.dest('build/public/stylesheets'));
 };
 
 const code = () => {
-    return gulp.src('./**/*.js ')
+    return gulp.src('./public/javascripts/*.js ')
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(minify())
+        .pipe(gulp.dest('build/public/javascripts'))
+};
+
+const routes = () => {
+    return gulp.src('./routes/*.js ')
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(minify())
+        .pipe(gulp.dest('build/routes'))
+};
+
+const core = () => {
+    return gulp.src('./*.js ')
         .pipe(babel({
             presets: ['@babel/env']
         }))
@@ -39,6 +57,15 @@ const views = () => {
         .pipe(rename({
             dirname: 'html'
         }))
+        .pipe(gulp.dest('build/views'))
+};
+
+const binwww = () => {
+    return gulp.src('./bin/*')
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(minify())
         .pipe(gulp.dest('build/'))
 };
 
@@ -53,5 +80,5 @@ const ssl = () => {
 };
 
 gulp.task("clean", gulp.series(clean));
-gulp.task("build", gulp.parallel(styles, code, views, data, ssl));
+gulp.task("build", gulp.parallel(styles, code, routes, core, binwww, views, data, ssl));
 gulp.task("default", gulp.series("clean", "build"));
