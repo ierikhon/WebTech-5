@@ -1,0 +1,18 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const https = require('https');
+const http = require('http');
+const fs = require('fs');
+const routes = require("./index.js");
+
+const server = express();
+
+server.use("/", routes);
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+
+const http_server = http.createServer(server);
+
+http_server.listen(3000, ()=>{
+    console.log('Server started at http://localhost:3000');
+});

@@ -1,0 +1,1 @@
+"use strict";var express=require("express"),router=express.Router();router.get("/",function(e,r,t){r.sendFile(__dirname+"/html/index.html")}),module.exports=router;
