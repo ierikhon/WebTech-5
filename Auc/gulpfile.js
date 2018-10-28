@@ -23,6 +23,14 @@ const styles = () => {
         .pipe(gulp.dest('build/'));
 };
 
+const w3 = () => {
+    return gulp.src('./stylesheets/*.css')
+        .pipe(rename({
+            dirname: 'css',
+        }))
+        .pipe(gulp.dest('build/'));
+};
+
 const code = () => {
     return gulp.src('./javascripts/*.js ')
         .pipe(babel({
@@ -76,5 +84,5 @@ const ssl = () => {
 };
 
 gulp.task("clean", gulp.series(clean));
-gulp.task("build", gulp.parallel(styles, code, routes, core, views, data, ssl));
+gulp.task("build", gulp.parallel(styles, w3, code, routes, core, views, data, ssl));
 gulp.task("default", gulp.series("clean", "build"));

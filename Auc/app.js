@@ -8,6 +8,8 @@ const routes = require("./index.js");
 const server = express();
 
 server.use("/", routes);
+server.use(express.static(__dirname + "/html"));
+server.use('/css', express.static(__dirname + "/css"));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
