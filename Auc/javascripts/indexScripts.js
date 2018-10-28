@@ -24,6 +24,31 @@ function set_gallery(gallery){
     }
 }
 
-function show_info(i){}
+function show_info(i){
+    $("#name_input").val(gallery[i]["name"]);
+    $("#url_input").val(gallery[i]["url"]);
+    $("#author_input").val(gallery[i]["author"]);
+    $("#descr_input").text(gallery[i]["description"]);
+    $("#sprice_input").val(gallery[i]["start_price"]);
+    $("#minstep_input").val(gallery[i]["min_step"]);
+    $("#maxstep_input").val(gallery[i]["max_step"]);
+    $("#modal").show();
+}
+
+function dismiss_modal()
+{
+    $("#modal").hide();
+}
+
+function show_dummy(){
+    $("#name_input").val(" ");
+    $("#url_input").val(" ");
+    $("#author_input").val(" ");
+    $("#descr_input").text(" ");
+    $("#sprice_input").val(" ");
+    $("#minstep_input").val(" ");
+    $("#maxstep_input").val(" ");
+    $("#modal").show();
+}
 
 get_gallery();
