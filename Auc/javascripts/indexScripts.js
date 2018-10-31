@@ -46,6 +46,7 @@ function show_info(i){
     $("#minstep_input").val(gallery[i]["min_step"]);
     $("#maxstep_input").val(gallery[i]["max_step"]);
     $("#index_info").text(i.toString());
+    $("#for_input").prop('checked', gallery[i]["for_auction"]);
     $("#modal").show();
 }
 
@@ -74,6 +75,7 @@ function add_image(){
     image.start_price = $("#sprice_input").val();
     image.min_step = $("#minstep_input").val();
     image.max_step = $("#maxstep_input").val();
+    image.for_auction = $("#for_input").is(":checked");
     let obj = {
         "img": image
     };

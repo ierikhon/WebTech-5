@@ -50,7 +50,7 @@ router.delete('/:num([0-9]{1,})', (req, res, next)=>{
         res.json(responseOK());
     }
     else{
-        res.json(responseError("Error 403: forbinden id!"));
+        res.json(responseError("Error 403: Wrong id!"));
     }
     next();
 });
