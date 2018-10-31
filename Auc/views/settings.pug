@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    include header
+    div(align='center')
+        b Start Day
+        input(type='date' class='w3-input' id='date_input')
+        b Start Time
+        input(type='time' class='w3-input' id='time_input')
+        b Time for Sale
+        input(type='time' class='w3-input' id='stime_input')
+        b Timeout before start
+        input(type='time' class='w3-input' id='timeout_input')
+
+        button(class='w3-btn w3-green' onclick='save_settings()') Save
+    script(src='/javascripts/settingsScripts.js')
