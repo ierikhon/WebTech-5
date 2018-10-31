@@ -20,5 +20,5 @@ server.use(bodyParser.urlencoded({ extended: true }));
 const http_server = http.createServer(server);
 
 http_server.listen(3000, ()=>{
-    console.log('Server started at http://localhost:3000');
+    console.log('Server started at http://localhost:3000/members');
 });

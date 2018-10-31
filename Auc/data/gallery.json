@@ -7,7 +7,7 @@
     "start_price": 10000,
     "min_step": 1000,
     "max_step": 10000,
-    "for_auction": false
+    "for_auction": "false"
   },
   {
     "name": "The Doctor",
@@ -17,7 +17,7 @@
     "start_price": 15300,
     "min_step": 100,
     "max_step": 1000,
-    "for_auction": true
+    "for_auction": "true"
   },
   {
     "name": "Лунная ночь на Днепре",
@@ -27,7 +27,7 @@
     "start_price": 10000,
     "min_step": 1000,
     "max_step": 5000,
-    "for_auction": true
+    "for_auction": "true"
   },
   {
     "name": "The Battle of Bull Run",
@@ -37,6 +37,6 @@
     "start_price": 20000,
     "min_step": 1000,
     "max_step": 7000,
-    "for_auction": true
+    "for_auction": "true"
   }
 ]

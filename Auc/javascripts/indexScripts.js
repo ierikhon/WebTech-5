@@ -4,6 +4,8 @@ function get_gallery() {
     $.get("/gallery", {parameters: "to", server: "side"})
         .done((data)=>{
             gallery = data;
+            for (let i=0; i<gallery.length; i++)
+                gallery[i]["for_auction"] = gallery[i]["for_auction"] === 'true';
             set_gallery(gallery);
         });
 }
