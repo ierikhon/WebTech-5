@@ -17,11 +17,24 @@ function set_gallery(gallery){
         let author = $('<td>').text(gallery[i]["author"]);
         let button = $('<td>').append(
             $('<button>').addClass("w3-btn").addClass("w3-green").text("Swow info")
-                .attr("onclick", "show_info(" + i + ")")
+                .attr("onclick", "show_info(" + i + ")"),
+        $('<button>').addClass("w3-btn").addClass("w3-red").text("Delete")
+            .attr("onclick", "remove_element(" + i + ")")
         );
         row.append(number).append(name).append(author).append(button);
         table.append(row);
     }
+}
+
+function remove_element(i)
+{
+    $.ajax({
+        url: "/" + i,
+        method: "DELETE",
+        success: () =>{
+            location.reload();
+        }
+    })
 }
 
 function show_info(i){
@@ -32,6 +45,7 @@ function show_info(i){
     $("#sprice_input").val(gallery[i]["start_price"]);
     $("#minstep_input").val(gallery[i]["min_step"]);
     $("#maxstep_input").val(gallery[i]["max_step"]);
+    $("#index_info").text(i.toString());
     $("#modal").show();
 }
 
@@ -49,6 +63,33 @@ function show_dummy(){
     $("#minstep_input").val(" ");
     $("#maxstep_input").val(" ");
     $("#modal").show();
+}
+
+function add_image(){
+    let image = {};
+    image.name = $("#name_input").val();
+    image.url = $("#url_input").val();
+    image.author = $("#author_input").val();
+    image.description = $("#descr_input").val();
+    image.start_price = $("#sprice_input").val();
+    image.min_step = $("#minstep_input").val();
+    image.max_step = $("#maxstep_input").val();
+    let obj = {
+        "img": image
+    };
+    let id = $("#index_info").text();
+    if (id !== "")
+        obj.id = parseInt(id);
+    else
+        obj.id = -1;
+    $.ajax({
+        url: "/",
+        method: "PUT",
+        data: obj,
+        success: () =>{
+            location.reload();
+        }
+    })
 }
 
 get_gallery();

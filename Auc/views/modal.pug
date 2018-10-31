@@ -2,6 +2,9 @@ div(id='modal' class='w3-modal')
     div(class='w3-modal-content')
         div(class='w3-container')
             div(class='w3-container')
+                b Number
+                p
+                    span(id='index_info')
                 b Name
                 input(type='text' class='w3-input' id='name_input')
                 b URL
@@ -18,5 +21,5 @@ div(id='modal' class='w3-modal')
                 input(type='text' class='w3-input' id='maxstep_input')
 
                 div(class='w3-container' align='center')
-                    button(class='w3-btn w3-green w3-margin-bottom w3-margin-top') Saave changes
+                    button(class='w3-btn w3-green w3-margin-bottom w3-margin-top' onclick='add_image()') Save changes
                     button(class='w3-btn w3-red w3-margin-bottom w3-margin-top' onclick='dismiss_modal()') Cancel

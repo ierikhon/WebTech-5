@@ -48,7 +48,7 @@ const routes = () => {
         .pipe(babel({
             presets: ['@babel/env']
         }))
-        .pipe(minify())
+        //.pipe(minify())
         .pipe(rename({
         }))
         .pipe(gulp.dest('build/'))
