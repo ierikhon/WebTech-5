@@ -20,16 +20,6 @@
     "for_auction": "true"
   },
   {
-    "name": "Лунная ночь на Днепре",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kuindzhi_Moonlit_night_on_the_Dnieper_1880_grm_x2.jpg/800px-Kuindzhi_Moonlit_night_on_the_Dnieper_1880_grm_x2.jpg",
-    "author": "Архип Куинджи",
-    "description": "На картине изображена широкая река — Днепр — в летнюю лунную ночь. Зеленоватая лента реки, в которой отражается лунный свет, пересекает равнину, которая у горизонта сливается с тёмным небом, покрытым рядами лёгких облаков. Эта картина считается самым прославленным произведением Куинджи, и она рассматривается как крупнейшее творческое достижение художника.",
-    "start_price": 10000,
-    "min_step": 1000,
-    "max_step": 5000,
-    "for_auction": "true"
-  },
-  {
     "name": "The Battle of Bull Run",
     "url": "https://cdn.loc.gov/service/pnp/pga/01800/01843v.jpg",
     "author": "Kurz & Allison",
