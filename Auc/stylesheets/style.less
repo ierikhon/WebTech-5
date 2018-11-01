@@ -31,6 +31,12 @@
   background-color: @header_background;
   &:hover{
     color: .lighter(@header_color)[@return];
-    background-color: .darker(@header_background)[@return];
+  }
+}
+
+#header .w3-btn{
+  &:hover{
+    border: solid 3px .darker(@header_color)[@return];
+    margin: 13px !important;
   }
 }
