@@ -1,0 +1,16 @@
+div(id='modal' class='w3-modal')
+    div(class='w3-modal-content')
+        div(class='w3-container')
+            div(class='w3-container')
+                p Number:
+                    span(id='index_info')
+                b Name
+                input(type='text' class='w3-input' id='name_input')
+                b Surname
+                input(type='text' class='w3-input' id='surname_input')
+                b Money
+                input(type='text' class='w3-input' id='phone_input')
+
+                div(class='w3-container' align='center')
+                    button(class='w3-btn w3-green w3-margin-bottom w3-margin-top' onclick='add_member()') Save changes
+                    button(class='w3-btn w3-red w3-margin-bottom w3-margin-top' onclick='dismiss_modal()') Cancel

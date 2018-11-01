@@ -1,0 +1,42 @@
+@import "w3.css";
+
+@table_width: 50%;
+@header_width: 100%;
+@header_height: 10%;
+@header_color: red;
+@header_background: #191968;
+
+.bordered {
+  border: solid 2px #3d46a3;
+}
+
+.lighter(@color){
+  @return: @color + #489118
+}
+
+.darker(@color){
+  @return: @color - #123456
+}
+
+#members_table{
+    width: @table_width;
+    .bordered
+}
+
+#header{
+  position: relative;
+  width: @header_width;
+  height: @header_height;
+  color: @header_color;
+  background-color: @header_background;
+  &:hover{
+    color: .lighter(@header_color)[@return];
+  }
+}
+
+#header .w3-btn{
+  &:hover{
+    border: solid 3px .darker(@header_color)[@return];
+    margin: 13px !important;
+  }
+}
