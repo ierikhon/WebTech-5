@@ -3,4 +3,10 @@ extends layout
 block content
     p Hello, welcome to the auction
     input(type='text' id='name')
-    a(class='w3-btn w3-green' href='/') Go to auction
+    a(class='w3-btn w3-green w3-margin' onclick='go()' id='goButton' href='') Go to auction
+
+    script.
+        function go() {
+            let name = $('#name').val();
+            $('#goButton').attr('href', '/start/' + name);
+        }
