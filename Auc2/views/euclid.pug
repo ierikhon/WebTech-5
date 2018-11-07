@@ -5,5 +5,12 @@ block content
         div(class='w3-half')
             include includes/picture_info
         div(class='w3-half')
-            include includes/user_controls
+            div(class='w3-margin')
+                div(class='w3-container')
+                    p
+                        label Enter Price
+                        input(class='w3-input' id='new_price_input' type='number' disabled)
+                    div(class='w3-bar w3-margin-bottom')
+                        button(class='w3-btn w3-green w3-margin-right' onclick='newPrice()' id='set_button' disabled) Raise Price
+                        button(class='w3-btn w3-red' onclick='participate()' id='request_button' disabled) Participate
             include includes/trade_log

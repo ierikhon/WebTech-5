@@ -5,5 +5,18 @@ block content
         div(class='w3-half')
             include includes/picture_info
         div(class='w3-half')
-            include includes/admin_controls
+            div(class='w3-margin')
+                div(class='w3-container')
+                    p
+                        p(align='center') Choose Picture
+                        select(class='w3-select' id='pictures_select')
+                    div(class='w3-margin-bottom')
+                        button(class='w3-btn w3-green w3-margin-right' onclick='setPicture()' id='set_button') Put on review
+                        button(class='w3-btn w3-red' onclick='startAuction()' id='start_auc_button' disabled) Start
             include includes/trade_log
+            p User List
+            table(class='w3-table-all' id='user_table')
+                tr
+                    th Name
+                    th Money
+                    th Status
