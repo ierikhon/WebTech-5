@@ -3,24 +3,14 @@ div(class='w3-margin')
         div(class='w3-row w3-margin-bottom')
             div(class='w3-container')
                 button(class='w3-btn w3-margin-top w3-green w3-block'
-                onclick='document.getElementById("modal").style.display="block"') Информация
-                p
-                    label Обратный отсчёт
+                onclick='document.getElementById("modal").style.display="block"') Show info
+                p Countdown
                     input(class='w3-input w3-border' id='timeout_info' type='number' disabled)
-                p
-                    label Название
+                p Name
                     input(class='w3-input w3-border' id='name_input_info' type='text' disabled)
-                p
-                    label Автор
+                p Author
                     input(class='w3-input w3-border' id='author_input_info' type='text' disabled)
-        div(class='w3-row')
-            div(class='w3-half')
-                p
-                    label Начальная цена
-                    input(class='w3-input w3-border w3-margin-bottom' id='start_price_input_info' type='number' disabled)
-            div(class='w3-half')
-                p
-                    label Текущая цена
+                p Current Price
                     input(class='w3-input w3-border w3-margin-bottom' id='current_price_info' type='number' disabled)
 include picture_modal
 script(src='/javascript/picture_info.js')

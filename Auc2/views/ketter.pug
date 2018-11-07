@@ -1,4 +1,9 @@
 extends layout
 
 block content
-    p Hello Admin
+    div(class='w3-row')
+        div(class='w3-half')
+            include includes/picture_info
+        div(class='w3-half')
+            include includes/admin_controls
+            include includes/trade_log
