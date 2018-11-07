@@ -6,6 +6,7 @@ let auc_timeout;
 let current_picture;
 let current_stake;
 let cur_price;
+let _gallery;
 
 function startSocketServer() {
     const io = require('socket.io').listen(3030);
@@ -17,7 +18,7 @@ function startSocketServer() {
         });
 
         socket.on('picture_set', (msg)=>{
-            setPictureParams(msg.id);
+            setPictureParams(msg);
         });
 
         socket.on('start_auction', (msg)=>{
@@ -59,7 +60,23 @@ function startSocketServer() {
             socket.broadcast.json.emit('stop_auc_info', {"id": current_picture._id});
         }
 
-        function setPictureParams(id) {
+        function setPictureParams(pic) {
+            current_picture = pic.gallery[pic.id];
+            _gallery = pic.gallery;
+            send(socket, 'picture_init', `Картина ${current_picture.name} поставлена на аукцион`);
+            socket.broadcast.json.emit('picture_id', {
+                "id": current_picture._id,
+                "start_price": current_picture.start_price,
+                "min_step": current_picture.min_step,
+                "max_step": current_picture.max_step
+            });
+
+        info_t = pic.info_t;
+        sell_t = pic.sell_t;
+        auc_timeout = setTimeout(() => {
+            startAuc()
+        }, info_t * 1000)
+
         }
     })
 }

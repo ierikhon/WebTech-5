@@ -6,8 +6,7 @@ const domain = require('domain');
 const sockets = require('./routes/socket');
 
 const routes = require("./routes/routes");
-//const users = require("./routes/users");
-//const settings = require("./routes/set");
+const settings = require("./routes/set");
 //const winston = require('./logger');
 
 const server = express();
@@ -16,11 +15,13 @@ server.use(express.static(__dirname + "/views"));
 server.use('/javascripts', express.static(__dirname + "/javascripts"));
 server.use('/stylesheets', express.static(__dirname + "/stylesheets"));
 server.use('/lib', express.static(__dirname + "/lib"));
+server.use('/data', express.static(__dirname + "/data"));
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
 server.use("/", routes);
+server.use("/set", settings);
 //server.use("/users", users);
 //server.use("/set", settings);
 

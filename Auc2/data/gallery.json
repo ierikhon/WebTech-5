@@ -7,7 +7,7 @@
     "start_price": 10000,
     "min_step": 1000,
     "max_step": 10000,
-    "for_auction": "false"
+    "for_auction": "true"
   },
   {
     "name": "The Doctor",
