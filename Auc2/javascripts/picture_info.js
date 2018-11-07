@@ -21,8 +21,8 @@ $(document).ready(()=>{
                 $("#minstep_input").val(picture.min_step);
                 $("#maxstep_input").val(picture.max_step);
                 $("#for_input").prop('checked', picture.for_auction === 'true');
-                $("#buyer_input").val(picture.sold_price>0 ? picture.buyer : '-');
-                $("#sold_price_input").val(picture.sold_price);
+                //$("#buyer_input").val(picture.sold_price>0 ? picture.buyer : '-');
+                //$("#sold_price_input").val(picture.sold_price);
                 clearTimeout(countdown_timer);
                 seconds = info_t;
                 startTimer();

@@ -65,10 +65,10 @@ function startSocketServer() {
             _gallery = pic.gallery;
             send(socket, 'picture_init', `Картина ${current_picture.name} поставлена на аукцион`);
             socket.broadcast.json.emit('picture_id', {
-                "id": current_picture._id,
-                "start_price": current_picture.start_price,
-                "min_step": current_picture.min_step,
-                "max_step": current_picture.max_step
+                "id": pic.id,
+                "start_price": _gallery[pic.id].start_price,
+                "min_step": _gallery[pic.id].min_step,
+                "max_step": _gallery[pic.id].max_step
             });
 
         info_t = pic.info_t;

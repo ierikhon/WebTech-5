@@ -1,5 +1,5 @@
 var socket;
-var current_user = $('#name').val();
+var current_user;
 var current_params;
 var parts = false;
 
