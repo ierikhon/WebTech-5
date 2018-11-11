@@ -65,6 +65,6 @@ function newPrice(){
         });
     }
     else{
-        
+        $('#dial').dialog('open');
     }
 }

@@ -1,9 +1,27 @@
 extends layout
 
 block content
+    script.
+        $(function () {
+            $("#dial").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+        });
+
+    div(id='dial' title='Error')
+        p You don't have enough money or entered wrong price
     div(class='w3-row')
         div(class='w3-half')
             include includes/picture_info
+            include includes/user_info
         div(class='w3-half')
             div(class='w3-margin')
                 div(class='w3-container')

@@ -15,11 +15,11 @@ router.get('/:id', (req, res, next)=>{
     for (let mem of members)
         if (mem.name === name) {
             isHere = true;
-            res.json({"mem": mem, "newes": false});
+            res.json({"mem": mem, "newes": true});
         }
     if (!isHere) {
         let len = members.length;
-        let newest = {"name": name, "Aquisitions": ["gg"], "money": 100000};
+        let newest = {"name": name, "Aquisitions": [], "money": 100000};
         members[len] = newest;
         res.json({"mem":newest, "newes": true});
         saveJSON(members, './data/members.json');
