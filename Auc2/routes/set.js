@@ -14,10 +14,6 @@ function responseOK(){
     }
 }
 
-function saveJSON(object, path){
-    fs.writeFile(path, JSON.stringify(object));
-}
-
 router.get('/picture/:id', (req, res, next)=>{
     let num = req.params.id;
     res.json(pictures[num]);
