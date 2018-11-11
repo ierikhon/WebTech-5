@@ -3,14 +3,33 @@ var current_user;
 var current_params;
 var parts = false;
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 $(document).ready(()=>{
     socket = io.connect('http://localhost:3030');
+    current_user = getCookie('username');
     socket.on("picture_id", (msg)=>{
         $("#request_button").removeAttr('disabled');
         $("#new_price_input").val(msg.start_price);
         current_params = msg;
         current_params.price = msg.start_price - msg.min_step + 1;
         parts = false;
+    });
+    socket.on("connect", () => {
+        socket.json.emit("connected", {"name": current_user});
     });
     socket.on('start_auc_info', ()=>{
         if (parts) {
@@ -32,7 +51,7 @@ $(document).ready(()=>{
 
 function participate(){
     parts = true;
-    socket.json.emit('user_in', {"id": current_user._id, "name": current_user.name});
+    socket.json.emit('user_in', {"name": current_user});
     $("#request_button").attr('disabled', 'disabled');
 }
 
@@ -41,8 +60,7 @@ function newPrice(){
     if ((price >= current_params.price + current_params.min_step) &&
         (price <= current_params.price + current_params.max_step)){
         socket.json.emit('user_stake', {
-            "id": current_user._id,
-            "name": current_user.name,
+            "name": current_user,
             "price": price
         });
     }

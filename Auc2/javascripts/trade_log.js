@@ -1,11 +1,10 @@
+
+
 var user;
 var msg_number = 0;
 
 function startSockets() {
     let socket = io.connect('http://localhost:3030');
-    socket.on("connect", () => {
-        socket.json.emit("connected", {"name": user});
-    });
     socket.on("joined", (msg) => {
         addMessage(msg.time, msg.message, 'w3-dark-gray');
     });
@@ -41,5 +40,6 @@ function addMessage(time, message, cls) {
         $("#trade_table tr:last").remove();
     }
 }
+
 
 startSockets();

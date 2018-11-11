@@ -50,7 +50,7 @@ function startSocketServer() {
             current_picture.for_auction = false;
             if (current_picture.buyer) {
                 msg = msg + `Победитель - ${current_picture.buyer}, цена - ${current_picture.sold_price}`;
-                current_picture.save();
+                //current_picture.save();
             }
             else {
                 msg = msg + `Картину никто не купил`;
