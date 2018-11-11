@@ -25,7 +25,7 @@ $(document).ready(()=>{
         $("#request_button").removeAttr('disabled');
         $("#new_price_input").val(msg.start_price);
         current_params = msg;
-        current_params.price = msg.start_price - msg.min_step + 1;
+        current_params.price = msg.start_price;
         parts = false;
     });
     socket.on("connect", () => {
@@ -65,9 +65,6 @@ function newPrice(){
         });
     }
     else{
-        let text = 'Неверно задана цена <br>' +
-            `Минимальная цена - ${current_params.price + current_params.min_step} <br>` +
-            `Максимальная цена - ${current_params.price + current_params.max_step}`;
-        $("#message").text(text).dialog('open');
+        
     }
 }

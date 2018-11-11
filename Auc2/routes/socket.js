@@ -5,13 +5,10 @@ let info_t;
 let sell_t;
 let auc_timeout;
 let current_picture;
+let current_picture_id;
 let current_stake;
 let cur_price;
 let _gallery;
-
-function saveJSON(object, path){
-    fs.writeFile(path, JSON.stringify(object));
-}
 
 function startSocketServer() {
     const io = require('socket.io').listen(3030);
@@ -19,7 +16,8 @@ function startSocketServer() {
     io.sockets.on('connection', (socket)=>{
         socket.on('connected', (msg)=>{
             socket.name = msg.name;
-            send(socket, 'joined', `${msg.name} присоединился к аукциону`);
+            socket.broadcast.json.emit('user_here', {"name": msg.name});
+            send(socket, 'joined', `${msg.name} joined or reconnected`);
         });
 
         socket.on('picture_set', (msg)=>{
@@ -32,44 +30,46 @@ function startSocketServer() {
         });
 
         socket.on('user_in', (msg)=>{
-            send(socket, 'user_in_info', `${msg.name} участвует в торгах за картину`)
+            send(socket, 'user_in_info', `${msg.name} is bidding`)
         });
 
         socket.on('user_stake', (msg)=>{
             cur_price = msg.price;
             current_picture.buyer = msg.name;
             current_picture.sold_price = cur_price;
-            send(socket, 'user_stake_info', `${msg.name} поднял цену до ${msg.price}`);
+            send(socket, 'user_stake_info', `${msg.name} raised price to ${msg.price}$`);
             socket.broadcast.json.emit('user_stake_price', msg);
             socket.json.emit('user_stake_price', msg);
         });
+
+
         function startAuc(){
             current_stake = "";
-            send(socket, 'start_auc_info', `Открыт аукцион по картине "${current_picture.name}"`);
+            send(socket, 'start_auc_info', `Auction started. Picture: "${current_picture.name}"`);
             setTimeout(stopAuc, sell_t * 1000);
         }
 
 
         function stopAuc(){
-            let msg = `Аукцион по картине "${current_picture.name}" окончен. '`;
+            let msg = `Auction finished. Picture: "${current_picture.name}".`;
             current_picture.for_auction = 'false';
             if (current_picture.buyer) {
-                msg = msg + `Победитель - ${current_picture.buyer}, цена - ${current_picture.sold_price}`;
+                msg = msg + ` Winner - ${current_picture.buyer}, price - ${current_picture.sold_price}$`;
                 _gallery[current_picture._id] = current_picture;
-                saveJSON(_gallery, "./data/gallery.json");
             }
             else {
-                msg = msg + `Картину никто не купил`;
+                msg = msg + ` Noone bought the picture`;
             }
             send(socket, 'stop_auc', msg);
-            socket.json.emit('stop_auc_info', {"id": current_picture._id});
-            socket.broadcast.json.emit('stop_auc_info', {"id": current_picture._id});
+            socket.json.emit('stop_auc_info', {"id": current_picture_id});
+            socket.broadcast.json.emit('stop_auc_info', {"id": current_picture_id});
         }
 
         function setPictureParams(pic) {
             current_picture = pic.gallery[pic.id];
+            current_picture_id = pic.id;
             _gallery = pic.gallery;
-            send(socket, 'picture_init', `Картина ${current_picture.name} поставлена на аукцион`);
+            send(socket, 'picture_init', `Picture "${current_picture.name}" put up for auction`);
             socket.broadcast.json.emit('picture_id', {
                 "id": pic.id,
                 "start_price": _gallery[pic.id].start_price,
