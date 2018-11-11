@@ -30,6 +30,9 @@ $(document).ready(()=>{
             }
         })
     });
+
+
+
     socket.on("start_auc_info", (info)=>{
         clearTimeout(countdown_timer);
         seconds = sell_t;

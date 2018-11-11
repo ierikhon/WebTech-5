@@ -61,8 +61,8 @@ function startSocketServer() {
                 msg = msg + ` Noone bought the picture`;
             }
             send(socket, 'stop_auc', msg);
-            socket.json.emit('stop_auc_info', {"id": current_picture_id});
-            socket.broadcast.json.emit('stop_auc_info', {"id": current_picture_id});
+            socket.json.emit('stop_auc_info', {"id": current_picture_id, "pic": current_picture});
+            socket.broadcast.json.emit('stop_auc_info', {"id": current_picture_id, "pic": current_picture});
         }
 
         function setPictureParams(pic) {

@@ -27,4 +27,13 @@ router.get('/:id', (req, res, next)=>{
 
 });
 
+router.put('/setaq/:id', (req, res, next)=>{
+    let name = req.params.id;
+    let picAquired = req.body;
+    for (let id in members)
+        if (members[id].name === name)
+            members[id].Aquisitions.append(picAquired);
+    saveJSON(members, './data/members.json');
+});
+
 module.exports = router;

@@ -43,9 +43,16 @@ $(document).ready(()=>{
     socket.on('user_stake_price', (info)=>{
         current_params.price = parseInt(info.price);
     });
-    socket.on('stop_auc_info',()=>{
+    socket.on('stop_auc_info',(info)=>{
         $("#set_button").attr('disabled', 'disabled');
         $("#new_price_input").attr('disabled', 'disabled');
+        if (current_user.name === info.pic["buyer"]) {
+            $.ajax({
+                url: '/users/setaq/' + info.pic["buyer"],
+                method: 'PUT',
+                data: {"name": info.pic["name"], "price": info.pic["sold_price"]}
+            });
+        }
     });
 });
 
