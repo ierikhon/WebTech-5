@@ -1,5 +1,3 @@
-
-
 var user;
 var msg_number = 0;
 

@@ -1,13 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const domain = require('domain');
 
 const sockets = require('./routes/socket');
 
 const routes = require("./routes/routes");
 const settings = require("./routes/set");
-//const users = require("./routes/users");
 //const winston = require('./logger');
 
 const server = express();
@@ -23,9 +21,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 
 server.use("/", routes);
 server.use("/set", settings);
-//server.use("/users", users);
-//server.use("/users", users);
-//server.use("/set", settings);
+
 
 server.set('view engine', 'pug');
 server.set('views', './views');

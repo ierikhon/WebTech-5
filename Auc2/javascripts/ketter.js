@@ -24,6 +24,7 @@ $(document).ready(()=>{
         $(`#pictures_select option[value=${msg.id}]`).remove();
         $('#set_button').removeAttr('disabled');
         $("#pictures_select").removeAttr('disabled');
+        location.reload();
     })
 });
 

@@ -1,4 +1,5 @@
 //const winston = require('./logger');
+const fs = require('fs');
 
 let info_t;
 let sell_t;
@@ -7,6 +8,10 @@ let current_picture;
 let current_stake;
 let cur_price;
 let _gallery;
+
+function saveJSON(object, path){
+    fs.writeFile(path, JSON.stringify(object));
+}
 
 function startSocketServer() {
     const io = require('socket.io').listen(3030);
@@ -47,10 +52,11 @@ function startSocketServer() {
 
         function stopAuc(){
             let msg = `Аукцион по картине "${current_picture.name}" окончен. '`;
-            current_picture.for_auction = false;
+            current_picture.for_auction = 'false';
             if (current_picture.buyer) {
                 msg = msg + `Победитель - ${current_picture.buyer}, цена - ${current_picture.sold_price}`;
-                //current_picture.save();
+                _gallery[current_picture._id] = current_picture;
+                saveJSON(_gallery, "./data/gallery.json");
             }
             else {
                 msg = msg + `Картину никто не купил`;
