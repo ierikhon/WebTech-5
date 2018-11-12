@@ -5,15 +5,6 @@ const router = express.Router();
 let pictures = require('../data/gallery');
 let settings = require('../data/settings');
 
-const fs = require('fs');
-
-function responseOK(){
-    return {
-        "ok": true,
-        "message": ""
-    }
-}
-
 router.get('/picture/:id', (req, res, next)=>{
     let num = req.params.id;
     res.json(pictures[num]);

@@ -6,6 +6,10 @@ router.get("/", (req, res, next)=>{
     res.render('index', {title: 'welcome'})
 });
 
+router.get("/info", (req, res, next)=>{
+    res.render('info', {})
+});
+
 router.get("/start/:un", (req, res, next)=>{
     let name = req.params.un;
     if (name === 'Admin')
