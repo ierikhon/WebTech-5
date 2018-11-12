@@ -2,16 +2,17 @@ socket = io.connect('http://localhost:3030');
 socket.on('user_here', (msg)=> {
     $.ajax({
         url: '/users/' + msg.name,
-        method: 'GET',
-        success: (member) => {
-            if (member.newes) {
-                let table = $('#user_table');
+        method: 'PUT',
+        success: (members) => {
+            for (let member of members)
+            {
+                let table = $('#user_table').empty();
                 let row = $('<tr>').attr("scope", "row");
-                let name = $('<td>').text(member.mem["name"]);
-                let money = $('<th>').text(member.mem["money"] + '$');
+                let name = $('<td>').text(member.name);
+                let money = $('<th>').text(member.money + '$');
                 let button = $('<td>').append(
                     $('<button>').addClass("w3-btn").addClass("w3-green").text("Show aquisitions")
-                        .attr("onclick", "show_info('" + member.mem["name"] + "')"));
+                        .attr("onclick", "show_info('" + member.name + "')"));
 
                 row.append(name).append(money).append(button);
                 table.append(row);
