@@ -26,7 +26,7 @@ function show_info(name) {
         url: '/users/' + name,
         method: 'GET',
         success: (member) => {
-            for (let paint of member.mem["Aquisitions"])
+            for (let paint of member.Aquisitions)
                 $('#aqu').append("<p>" + paint.name + "for" + paint.price + "$" + "</p>");
 
             $('#umodal').show();

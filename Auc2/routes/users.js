@@ -13,6 +13,13 @@ router.get('/', (req, res, next)=>{
     res.json(members);
 });
 
+router.get('/:id', (req, res, next)=>{
+    let id = req.params.id;
+    for (let mem of members)
+        if (mem.name === id)
+            res.json(mem);
+});
+
 router.put('/:id', (req, res, next)=>{
     let name = req.params.id;
     let isHere = false;
