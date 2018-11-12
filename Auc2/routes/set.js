@@ -11,7 +11,7 @@ router.get('/picture/:id', (req, res, next)=>{
 });
 
 router.get('/gallery', (req, res, next)=>{
-    res.json(pictures);
+    res.json(_gallery);
 });
 
 router.get('/settings', (req, res, next)=>{

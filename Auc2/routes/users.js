@@ -40,7 +40,7 @@ router.put('/setaq/:id', (req, res, next)=>{
     let picAquired = req.body;
     for (let id in members)
         if (members[id].name === name)
-            members[id].Aquisitions.append(picAquired);
+            members[id].Aquisitions[members[id].Aquisitions.length] = picAquired;
     saveJSON(members, './data/members.json');
 });
 

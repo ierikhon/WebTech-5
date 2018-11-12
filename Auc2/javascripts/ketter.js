@@ -20,7 +20,7 @@ $(document).ready(()=>{
         $('#set_button').attr('disabled', 'disabled');
         $('#start_auc_button').attr('disabled', 'disabled');
     });
-    socket.on('stop_auc_info', (msg)=>{
+    socket.on('stop_auc_info', ()=>{
         $('#pictures_select option:selected').remove();
         $('#set_button').removeAttr('disabled');
         $("#pictures_select").removeAttr('disabled');

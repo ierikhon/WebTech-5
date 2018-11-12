@@ -8,7 +8,7 @@ let current_picture;
 let current_picture_id;
 let current_stake;
 let cur_price;
-let _gallery;
+var _gallery;
 
 function startSocketServer() {
     const io = require('socket.io').listen(3030);

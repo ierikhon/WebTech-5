@@ -46,7 +46,7 @@ $(document).ready(()=>{
     socket.on('stop_auc_info',(info)=>{
         $("#set_button").attr('disabled', 'disabled');
         $("#new_price_input").attr('disabled', 'disabled');
-        if (current_user.name === info.pic["buyer"]) {
+        if (current_user === info.pic["buyer"]) {
             $.ajax({
                 url: '/users/setaq/' + info.pic["buyer"],
                 method: 'PUT',
