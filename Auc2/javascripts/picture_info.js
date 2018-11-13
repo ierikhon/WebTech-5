@@ -1,3 +1,5 @@
+//@flow
+
 var info_t = 0;
 var sell_t = 0;
 

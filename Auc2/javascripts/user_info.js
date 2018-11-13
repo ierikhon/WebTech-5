@@ -1,3 +1,5 @@
+//@flow
+
 socket = io.connect('http://localhost:3030');
 socket.on('user_here', (msg)=> {
     $.ajax({

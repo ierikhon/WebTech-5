@@ -1,3 +1,5 @@
+//@flow
+
 var socket;
 var _gallery;
 

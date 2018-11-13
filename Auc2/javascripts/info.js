@@ -1,3 +1,5 @@
+//@flow
+
 $(document).ready(()=>{
     $.ajax({
         url: '/set/gallery',
