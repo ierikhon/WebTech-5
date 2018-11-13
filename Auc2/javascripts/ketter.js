@@ -21,11 +21,13 @@ $(document).ready(()=>{
     socket.on('start_auc_info', ()=>{
         $('#set_button').attr('disabled', 'disabled');
         $('#start_auc_button').attr('disabled', 'disabled');
+        $('#info_pic_button').hide();
     });
     socket.on('stop_auc_info', ()=>{
         $('#pictures_select option:selected').remove();
         $('#set_button').removeAttr('disabled');
         $("#pictures_select").removeAttr('disabled');
+        $('#info_pic_button').show();
     })
 });
 

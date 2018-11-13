@@ -33,7 +33,14 @@ $(document).ready(()=>{
         })
     });
 
-
+    socket.on('gallery_changed', (gallery)=>{
+        $.ajax({
+            url: '/set',
+            method: 'PUT',
+            data: gallery,
+            success: (pictures)=>{console.log(pictures)}
+        });
+    });
 
     socket.on("start_auc_info", (info)=>{
         clearTimeout(countdown_timer);

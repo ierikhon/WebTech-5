@@ -8,7 +8,7 @@ let current_picture;
 let current_picture_id;
 let current_stake;
 let cur_price;
-var _gallery;
+let _gallery;
 
 function startSocketServer() {
     const io = require('socket.io').listen(3030);
@@ -63,6 +63,8 @@ function startSocketServer() {
             send(socket, 'stop_auc', msg);
             socket.json.emit('stop_auc_info', {"id": current_picture_id, "pic": current_picture});
             socket.broadcast.json.emit('stop_auc_info', {"id": current_picture_id, "pic": current_picture});
+            socket.json.emit('gallery_changed', _gallery);
+            socket.broadcast.json.emit('gallery_changed', _gallery);
         }
 
         function setPictureParams(pic) {

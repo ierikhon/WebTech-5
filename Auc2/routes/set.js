@@ -18,5 +18,10 @@ router.get('/settings', (req, res, next)=>{
     res.json(settings);
 });
 
+router.put('/', (req, res, next)=>{
+    pictures = req.body;
+    console.log('pid: ' + JSON.stringify(pictures));
+    res.json(pictures);
+});
 
 module.exports = router;
