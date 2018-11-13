@@ -35,6 +35,10 @@ router.put('/:id', (req, res, next)=>{
     res.json(members);
 });
 
+router.get('/', (req, res, next)=>{
+    res.json(members);
+});
+
 router.put('/setaq/:id', (req, res, next)=>{
     let name = req.params.id;
     let picAquired = req.body;
