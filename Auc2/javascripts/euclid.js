@@ -1,5 +1,3 @@
-//@flow
-
 var socket;
 var current_user;
 var current_params;

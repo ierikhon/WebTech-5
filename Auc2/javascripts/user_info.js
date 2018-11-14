@@ -1,5 +1,3 @@
-//@flow
-
 $(document).ready(get_users(undefined));
 
 socket = io.connect('http://localhost:3030');

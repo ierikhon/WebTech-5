@@ -1,3 +1,5 @@
+//@flow
+
 //const winston = require('./logger');
 const fs = require('fs');
 
