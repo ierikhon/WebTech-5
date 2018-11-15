@@ -11,6 +11,42 @@ function saveJSON(object, path){
     fs.writeFile(path, JSON.stringify(object));
 }
 
+function test_addpicture(name, picAquired) {
+    let t_mem = [{name:'Vasya', Aquisitions:[], money: 100000}];
+    let notHere = true;
+    for (let mem of t_mem)
+        if (mem.name === name) {
+            notHere = false;
+            break;
+        }
+    if (notHere)
+        return Promise.reject();
+    else {
+        for (let id in t_mem)
+            if (t_mem[id].name === name) {
+                t_mem[id].Aquisitions[t_mem[id].Aquisitions.length] = picAquired;
+                t_mem[id].money -= picAquired.sold_price;
+            }
+        return Promise.resolve(t_mem);
+    }
+
+}
+
+function test_adduser(name){
+    let t_mem = [];
+    let isHere = false;
+    for (let mem of t_mem)
+        if (mem.name === name) {
+            isHere = true;
+            return Promise.reject();
+        }
+    if (!isHere) {
+        let len = t_mem.length;
+        t_mem[len] = {"name": name, "Aquisitions": [], "money": 1000000};
+        return Promise.resolve(t_mem);
+    }
+}
+
 router.get('/', (req, res, next)=>{
     res.json(members);
 });
@@ -65,4 +101,4 @@ router.put('/setaq/:id', (req, res, next)=>{
     winston.verbose("Congrats to " + name + "! This man just aquired the picture " + picAquired.name);
 });
 
-module.exports = router;
+module.exports = {router, test_adduser, test_addpicture};
