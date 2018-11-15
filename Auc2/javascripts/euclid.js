@@ -63,15 +63,22 @@ function participate(){
 }
 
 function newPrice(){
-    let price = $('#new_price_input').val();
-    if ((price >= current_params.price + current_params.min_step) &&
-        (price <= current_params.price + current_params.max_step)){
-        socket.json.emit('user_stake', {
-            "name": current_user,
-            "price": price
-        });
-    }
-    else{
-        $('#dial').dialog('open');
-    }
+    $.ajax({
+        url: '/users/budget/' + current_user,
+        method: 'GET',
+        success: (budget)=>{
+            let price = $('#new_price_input').val();
+            if ((price >= current_params.price + current_params.min_step) &&
+                (price <= current_params.price + current_params.max_step) && (budget.money >= price)){
+                socket.json.emit('user_stake', {
+                    "name": current_user,
+                    "price": price
+                });
+            }
+            else{
+                $('#dial').dialog('open');
+            }
+        }
+    });
+
 }

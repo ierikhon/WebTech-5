@@ -15,11 +15,22 @@ router.get('/', (req, res, next)=>{
     res.json(members);
 });
 
+router.get('/budget/:id', (req, res, next)=>{
+    let user = req.params.id;
+    for (let mem of members)
+        if (mem.name === user) {
+            res.json({"money": mem.money});
+            break;
+        }
+});
+
 router.get('/:id', (req, res, next)=>{
     let id = req.params.id;
     for (let mem of members)
-        if (mem.name === id)
+        if (mem.name === id) {
             res.json(mem);
+            break;
+        }
 });
 
 router.put('/:id', (req, res, next)=>{
@@ -31,7 +42,7 @@ router.put('/:id', (req, res, next)=>{
         }
     if (!isHere) {
         let len = members.length;
-        members[len] = {"name": name, "Aquisitions": [], "money": 100000};
+        members[len] = {"name": name, "Aquisitions": [], "money": 1000000};
         saveJSON(members, './data/members.json');
     }
     res.json(members);
@@ -45,8 +56,10 @@ router.put('/setaq/:id', (req, res, next)=>{
     let name = req.params.id;
     let picAquired = req.body;
     for (let id in members)
-        if (members[id].name === name)
+        if (members[id].name === name) {
             members[id].Aquisitions[members[id].Aquisitions.length] = picAquired;
+            members[id].money -= picAquired.sold_price;
+        }
     saveJSON(members, './data/members.json');
 });
 
