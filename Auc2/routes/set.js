@@ -2,7 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
-//const winston = require('./logger');
+const winston = require('../logger');
 
 let pictures = require('../data/gallery');
 let settings = require('../data/settings');
@@ -23,6 +23,7 @@ router.get('/settings', (req, res, next)=>{
 router.put('/', (req, res, next)=>{
     let data = req.body;
     pictures = data.gal;
+    //winston.verbose("Something changed in our gallery!");
     res.json(pictures);
 });
 

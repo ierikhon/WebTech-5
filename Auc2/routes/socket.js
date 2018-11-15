@@ -1,8 +1,6 @@
 //@flow
 
 //const winston = require('./logger');
-const fs = require('fs');
-
 let info_t;
 let sell_t;
 let auc_timeout;
