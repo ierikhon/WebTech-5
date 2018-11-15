@@ -26,7 +26,15 @@ $(document).ready(()=>{
         $('#set_button').removeAttr('disabled');
         $("#pictures_select").removeAttr('disabled');
         $('#info_pic_button').show();
-    })
+    });
+    socket.on('gallery_changed', (gallery)=>{
+        $.ajax({
+            url: '/set',
+            method: 'PUT',
+            data: {"gal":gallery},
+            success: (pictures)=>{console.log(pictures)}
+        });
+    });
 });
 
 function setPicture() {

@@ -21,8 +21,8 @@ router.get('/settings', (req, res, next)=>{
 });
 
 router.put('/', (req, res, next)=>{
-    pictures = req.body;
-    console.log('pid: ' + JSON.stringify(pictures));
+    let data = req.body;
+    pictures = data.gal;
     res.json(pictures);
 });
 

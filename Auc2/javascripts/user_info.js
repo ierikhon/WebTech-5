@@ -53,6 +53,7 @@ function show_info(name) {
         url: '/users/' + name,
         method: 'GET',
         success: (member) => {
+            $('#aqu').empty();
             for (let paint of member.Aquisitions)
                 $('#aqu').append("<p>" + '"' +paint.name + '"' + " for " + paint.price + "$" + "</p>");
 
