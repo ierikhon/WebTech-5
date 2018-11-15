@@ -67,9 +67,9 @@ function newPrice(){
         url: '/users/budget/' + current_user,
         method: 'GET',
         success: (budget)=>{
-            let price = $('#new_price_input').val();
-            if ((price >= current_params.price + current_params.min_step) &&
-                (price <= current_params.price + current_params.max_step) && (budget.money >= price)){
+            let price = parseInt($('#new_price_input').val());
+            if ((price >= parseInt(current_params.price) + parseInt(current_params.min_step)) &&
+                (price <= parseInt(current_params.price) + parseInt(current_params.max_step)) && (budget.money >= price)){
                 socket.json.emit('user_stake', {
                     "name": current_user,
                     "price": price

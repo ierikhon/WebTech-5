@@ -11,8 +11,8 @@ function get_users(msg) {
             url: '/users/' + msg.name,
             method: 'PUT',
             success: (members) => {
+                let table = $('#user_table').empty();
                 for (let member of members) {
-                    let table = $('#user_table').empty();
                     let row = $('<tr>').attr("scope", "row");
                     let name = $('<td>').text(member.name);
                     let money = $('<th>').text(member.money + '$');
@@ -31,8 +31,8 @@ function get_users(msg) {
             url: '/users/',
             method: 'GET',
             success: (members) => {
+                let table = $('#user_table').empty();
                 for (let member of members) {
-                    let table = $('#user_table').empty();
                     let row = $('<tr>').attr("scope", "row");
                     let name = $('<td>').text(member.name);
                     let money = $('<th>').text(member.money + '$');
