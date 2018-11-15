@@ -9,6 +9,7 @@ router.get("/", (req, res, next)=>{
 });
 
 router.get("/info", (req, res, next)=>{
+    winston.warn("Info page");
     res.render('info', {})
 });
 

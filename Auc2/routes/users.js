@@ -1,5 +1,3 @@
-//@flow
-
 const express = require("express");
 const router = express.Router();
 const fs = require('fs');
@@ -9,42 +7,6 @@ let members = require('../data/members');
 
 function saveJSON(object, path){
     fs.writeFile(path, JSON.stringify(object));
-}
-
-function test_addpicture(name, picAquired) {
-    let t_mem = [{name:'Vasya', Aquisitions:[], money: 100000}];
-    let notHere = true;
-    for (let mem of t_mem)
-        if (mem.name === name) {
-            notHere = false;
-            break;
-        }
-    if (notHere)
-        return Promise.reject();
-    else {
-        for (let id in t_mem)
-            if (t_mem[id].name === name) {
-                t_mem[id].Aquisitions[t_mem[id].Aquisitions.length] = picAquired;
-                t_mem[id].money -= picAquired.sold_price;
-            }
-        return Promise.resolve(t_mem);
-    }
-
-}
-
-function test_adduser(name){
-    let t_mem = [];
-    let isHere = false;
-    for (let mem of t_mem)
-        if (mem.name === name) {
-            isHere = true;
-            return Promise.reject();
-        }
-    if (!isHere) {
-        let len = t_mem.length;
-        t_mem[len] = {"name": name, "Aquisitions": [], "money": 1000000};
-        return Promise.resolve(t_mem);
-    }
 }
 
 router.get('/', (req, res, next)=>{
@@ -62,6 +24,10 @@ router.get('/budget/:id', (req, res, next)=>{
 
 router.get('/:id', (req, res, next)=>{
     let id = req.params.id;
+
+    if (!id)
+        winston.warn("Can't resolve member name");
+
     for (let mem of members)
         if (mem.name === id) {
             res.json(mem);
@@ -71,6 +37,10 @@ router.get('/:id', (req, res, next)=>{
 
 router.put('/:id', (req, res, next)=>{
     let name = req.params.id;
+
+    if (!name)
+        winston.warn("Name of newcomer is Undefined");
+
     let isHere = false;
     for (let mem of members)
         if (mem.name === name) {
@@ -91,6 +61,10 @@ router.get('/', (req, res, next)=>{
 
 router.put('/setaq/:id', (req, res, next)=>{
     let name = req.params.id;
+
+    if (!name)
+        winston.warn("Name of Aquisitor is Undefined");
+
     let picAquired = req.body;
     for (let id in members)
         if (members[id].name === name) {
@@ -101,4 +75,5 @@ router.put('/setaq/:id', (req, res, next)=>{
     winston.verbose("Congrats to " + name + "! This man just aquired the picture " + picAquired.name);
 });
 
-module.exports = {router, test_adduser, test_addpicture};
+module.exports = router;
+
