@@ -35,5 +35,8 @@ let logger = winston.createLogger({
 
 logger.add(new Sentry({ //Вывод в Sentry
     level: 'warn', //Уровень warn или выше
-    dsn: "https://27fa4786f6794ff3b8aba990c86be5ad3d0d6c32f470481d8478bc165a9d0dd0@sentry.io/1310383"
+    dsn: "https://f49c506c1c254109b67b534339da9550@sentry.io/1323467"
 }));
+
+
+module.exports = logger;

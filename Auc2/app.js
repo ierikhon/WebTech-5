@@ -50,6 +50,6 @@ server.set('view engine', 'pug');
 server.set('views', './views');
 
 server.listen(3000, ()=>{
-    console.log('Server started at http://localhost:3000');
+    winston.verbose('Server started at http://localhost:3000');
 });
 sockets.startSocketServer();

@@ -44,7 +44,7 @@ router.put('/:id', (req, res, next)=>{
         let len = members.length;
         members[len] = {"name": name, "Aquisitions": [], "money": 1000000};
         saveJSON(members, './data/members.json');
-        //winston.verbose("New user in our rows:" + name);
+        winston.verbose("New user in our rows:" + name);
     }
     res.json(members);
 });
@@ -62,7 +62,7 @@ router.put('/setaq/:id', (req, res, next)=>{
             members[id].money -= picAquired.sold_price;
         }
     saveJSON(members, './data/members.json');
-    //winston.verbose("Congrats to " + name + "! This man just aquired the picture " + picAquired.name);
+    winston.verbose("Congrats to " + name + "! This man just aquired the picture " + picAquired.name);
 });
 
 module.exports = router;

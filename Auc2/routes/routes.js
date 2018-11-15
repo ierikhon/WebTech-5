@@ -15,7 +15,7 @@ router.get("/info", (req, res, next)=>{
 router.get("/start/:un", (req, res, next)=>{
     let name = req.params.un;
     if (name === 'Admin') {
-        //winston.verbose("Admin connected!");
+        winston.verbose("Admin connected!");
         res.render('ketter', {title: 'admin'});
     }
     else res.render('euclid', {title: name});

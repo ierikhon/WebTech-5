@@ -1,26 +1,32 @@
-let path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const CopyPlugin = require('copy-webpack-plugin');
+
 
 module.exports = {
     mode: 'development',
     entry: './app.js',
     target: "node",
     module:{
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+            },
 
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: __dirname,
         filename: 'bundle.js'
     },
-    plugins: [
-        new CopyPlugin([
-            {from: './stylesheets/**', to: ''},
-            {from: './routes/**', to: ''},
-            {from: './views/**', to: ''},
-            {from: './javascripts/**', to: ''},
-            {from: './data/**', to: ''}
-        ])
-    ],
+
     externals: [nodeExternals()]
 };
