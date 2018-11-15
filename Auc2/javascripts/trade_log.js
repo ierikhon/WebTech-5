@@ -4,25 +4,25 @@ var msg_number = 0;
 function startSockets() {
     let socket = io.connect('http://localhost:3030');
     socket.on("joined", (msg) => {
-        addMessage(msg.time, msg.message, 'w3-dark-gray');
+        addMessage(msg.time, msg.message, 'w3-gray');
     });
     socket.on("picture_init", (msg)=>{
         addMessage(msg.time, msg.message, 'w3-red')
     });
     socket.on("start_auc_info", (msg)=>{
-        addMessage(msg.time, msg.message, 'w3-orange');
+        addMessage(msg.time, msg.message, 'w3-green');
     });
     socket.on("user_in_info", (msg)=>{
         addMessage(msg.time, msg.message, 'w3-blue');
     });
     socket.on("user_stake_info", (msg)=>{
-        addMessage(msg.time, msg.message, 'w3-deep-purple');
+        addMessage(msg.time, msg.message, 'w3-white');
     });
     socket.on("stop_auc", (msg)=>{
-        addMessage(msg.time, msg.message, 'w3-black');
+        addMessage(msg.time, msg.message, 'w3-yellow');
     });
     socket.on('auc_finished', (msg)=>{
-        addMessage(msg.time, msg.message, 'w3-green');
+        addMessage(msg.time, msg.message, 'w3-black');
     })
 }
 
