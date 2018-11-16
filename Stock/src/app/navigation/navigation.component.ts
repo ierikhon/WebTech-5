@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-
+  private variable: string;
   constructor() { }
 
   ngOnInit() {
+    this.variable = 'TEST';
   }
-
+  lolkek(): void {
+    alert(this.variable);
+  }
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { BrokersComponent } from './brokers/brokers.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavigationComponent } from './navigation/navigation.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
