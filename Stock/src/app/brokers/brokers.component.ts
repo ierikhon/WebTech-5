@@ -67,10 +67,14 @@ export class BrokersComponent implements OnInit {
     }
     $('#modal').hide();
 
+    this.commitChanges();
+  }
+
+  private commitChanges() {
     $.ajax({
       url: 'http://localhost:3000/brokers',
       method: 'PUT',
-      data: {dat: self.brokers},
+      data: {dat: this.brokers},
       crossDomain: true
     });
   }

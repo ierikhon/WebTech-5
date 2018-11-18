@@ -1,12 +1,12 @@
 <div align="center">
   <b>Starts at</b>
-  <input type="date" class="w3-input" id="date_input">
+  <input type="date" class="w3-input" id="date_input" value="{{settings.day}}">
   <b>Start time</b>
-  <input type="time" class="w3-input" id="stime_input">
+  <input type="time" class="w3-input" id="stime_input" value="{{settings.stime}}">
   <b>Stop time</b>
-  <input type="time" class="w3-input" id="ftime_input">
+  <input type="time" class="w3-input" id="ftime_input" value="{{settings.ftime}}">
   <b>Price change timeout</b>
-  <input type="time" class="w3-input" id="timeout_input">
+  <input type="time" class="w3-input" id="timeout_input" value="{{settings.timeout}}">
 
-  <button class="w3-green w3-btn w3-margin-top">Save changes</button>
+  <button class="w3-green w3-btn w3-margin-top" (click)="save_change()">Save changes</button>
 </div>

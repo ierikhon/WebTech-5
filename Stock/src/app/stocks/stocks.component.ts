@@ -70,10 +70,14 @@ export class StocksComponent implements OnInit {
     }
     $('#modal').hide();
 
+    this.commitChanges();
+  }
+
+  private commitChanges() {
     $.ajax({
       url: 'http://localhost:3000/stocks',
       method: 'PUT',
-      data: {dat: self.stocks},
+      data: {dat: this.stocks},
       crossDomain: true
     });
   }
