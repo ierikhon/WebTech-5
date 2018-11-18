@@ -1,2 +1,11 @@
-<app-navigation></app-navigation>
-
+<div class="w3-grey" align="center">
+  <p class="w3-xxlarge">Stock Market</p>
+  <button class="w3-btn w3-green w3-margin w3-center" (click)="showStocks()">Stocks</button>
+  <button class="w3-btn w3-green w3-margin w3-center" (click)="showBrokers()">Brokers</button>
+  <button class="w3-btn w3-green w3-margin w3-center" (click)="showSettings()">Settings</button>
+</div>
+<div>
+  <app-stocks *ngIf="current_view==='stocks'"></app-stocks>
+  <app-brokers *ngIf="current_view==='brokers'"></app-brokers>
+  <app-settings *ngIf="current_view==='settings'"></app-settings>
+</div>

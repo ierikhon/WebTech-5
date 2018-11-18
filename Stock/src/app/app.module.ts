@@ -5,15 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { BrokersComponent } from './brokers/brokers.component';
-import { NavigationComponent } from './navigation/navigation.component';
 import {FormsModule} from '@angular/forms';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StocksComponent,
     BrokersComponent,
-    NavigationComponent
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
