@@ -10,7 +10,7 @@
       <b>Price</b>
       <input type="number" class="w3-input" id="price_input">
       <b>Changing Law</b>
-      <select class="w3-select" name="law_input">
+      <select class="w3-select" id="law_input">
         <option value="random">Random</option>
         <option value="normal">Normal</option>
         <option value="binom">Binomial</option>
@@ -19,7 +19,7 @@
       <input type="number" class="w3-input" id="amm_input">
 
       <div class="w3-container" align="center">
-        <button class="w3-btn w3-green w3-margin-bottom w3-margin-top">Save Chnages</button>
+        <button class="w3-btn w3-green w3-margin-bottom w3-margin-top" (click)="save_changes()">Save Chnages</button>
         <button class="w3-btn w3-red w3-margin-bottom w3-margin-top" (click)="dismiss_modal()">Cancel</button>
       </div>
     </div>
@@ -27,14 +27,21 @@
 </div>
 
 <div class="w3-center" align="center">
-  <a class="w3-btn w3-ripple w3-green w3-margin" (click)="showdummy()"> Add item</a>
+  <a class="w3-btn w3-ripple w3-green w3-margin" (click)="showdummy()"> Add</a>
 </div>
 <table border="3" style="width: 50%;" align="center" class="w3-table w3-striped" id="stock_table">
+  <thead>
   <tr>
-    <th class="w3-center">#</th>
     <th class="w3-center">Name</th>
     <th class="w3-center">Price</th>
     <th class="w3-center">Changing Law</th>
     <th class="w3-center">Ammount</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let stock of stocks" (click)="show_info(stock)">
+    <th class="w3-center">{{stock.name}}</th>
+    <th class="w3-center">{{stock.price}}</th>
+    <th class="w3-center">{{stock.law}}</th>
+    <th class="w3-center">{{stock.ammount}}</th>
   </tr>
 </table>
