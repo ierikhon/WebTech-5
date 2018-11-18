@@ -14,7 +14,7 @@ export class StocksComponent implements OnInit {
 
   constructor() { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.getStockInfo();
   }
 
