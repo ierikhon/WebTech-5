@@ -37,9 +37,11 @@ export class BrokersComponent implements OnInit {
 
   dismiss_modal() {
     $('#modal').hide();
+    $('#db').attr('disabled', 'disabled');
   }
 
   show_info(broker) {
+    $('#db').removeAttr('disabled');
     const self = this;
     this.current_broker = broker;
     for (const id in this.brokers) {
@@ -66,7 +68,7 @@ export class BrokersComponent implements OnInit {
       self.brokers.push(<Broker>new_stock);
     }
     $('#modal').hide();
-
+    $('#db').attr('disabled', 'disabled');
     this.commitChanges();
   }
 
@@ -77,6 +79,12 @@ export class BrokersComponent implements OnInit {
       data: {dat: this.brokers},
       crossDomain: true
     });
+  }
+
+  delete_broker() {
+    this.brokers.splice(parseInt(this.current_broker_id, 10), 1);
+    $('#modal').hide();
+    this.commitChanges();
   }
 }
 
