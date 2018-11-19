@@ -1,1 +1,1 @@
-[{"name":"Brent","price":"10001","law":"random","ammount":"500"},{"name":"MMGB","price":"500","law":"normal","ammount":"1000"},{"name":"WTI","price":"1800","law":"binom","ammount":"10000"}]
+[{"name":"MMGB","price":"500","law":"normal","ammount":"1000"},{"name":"WTI","price":"180","law":"binom","ammount":"1000"},{"name":"Brent","price":"500","law":"random","ammount":"1000"}]

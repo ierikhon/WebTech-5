@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Stock, MarketService } from '../market.service';
 import * as $ from 'jquery';
 
 @Component({
@@ -8,28 +9,26 @@ import * as $ from 'jquery';
 })
 
 export class StocksComponent implements OnInit {
-  stocks: Stock[];
   current_stock: Stock;
   current_stock_id: string;
 
-  constructor() { }
-
-  ngOnInit() {
-    this.getStockInfo();
+  constructor(private marketService: MarketService) {
   }
 
-  getStockInfo() {
-    $.ajax({
-      url: 'http://localhost:3000/stocks',
-      method: 'GET',
-      crossDomain: true,
-      success: (data) => { this.stocks = data; }
-    });
+  save_changes_local() {
+    this.marketService.save_changes(this.current_stock, this.current_stock_id);
+  }
+
+  delete_stock_local() {
+    this.marketService.delete_stock(this.current_stock_id);
+  }
+
+  ngOnInit() {
   }
 
   showdummy() {
     this.current_stock = undefined;
-    this.current_stock_id = '' + this.stocks.length;
+    this.current_stock_id = '' + this.get_stocks().length;
     $('#name_input').val('');
     $('#price_input').val(0);
     $('#amm_input').val(10000);
@@ -45,8 +44,8 @@ export class StocksComponent implements OnInit {
     $('#db').removeAttr('disabled');
     const self = this;
     this.current_stock = stock;
-    for (const id in this.stocks) {
-      if (self.stocks[id].name === stock.name) {
+    for (const id in this.get_stocks()) {
+      if (self.get_stocks()[id].name === stock.name) {
         self.current_stock_id = id;
       }
     }
@@ -57,43 +56,7 @@ export class StocksComponent implements OnInit {
     $('#modal').show();
   }
 
-  save_changes() {
-    const self = this;
-    const new_name = $('#name_input').val();
-    const new_price = $('#price_input').val();
-    const new_law = $('#law_input').val();
-    const new_ammount = $('#amm_input').val();
-    const new_stock = {name: new_name, price: new_price, law: new_law, ammount: new_ammount};
-
-    if (this.current_stock) {
-      self.stocks[this.current_stock_id] =  <Stock>new_stock;
-    } else {
-      self.stocks.push(<Stock>new_stock);
-    }
-    $('#modal').hide();
-    $('#db').attr('disabled', 'disabled');
-    this.commitChanges();
+  get_stocks() {
+    return this.marketService.stocks;
   }
-
-  private commitChanges() {
-    $.ajax({
-      url: 'http://localhost:3000/stocks',
-      method: 'PUT',
-      data: {dat: this.stocks},
-      crossDomain: true
-    });
-  }
-
-  delete_stock() {
-    this.stocks.splice(parseInt(this.current_stock_id, 10), 1);
-    $('#modal').hide();
-    this.commitChanges();
-  }
-}
-
-export interface Stock {
-  name: string;
-  price: number;
-  law: string;
-  ammount: number;
 }

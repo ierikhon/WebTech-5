@@ -6,9 +6,9 @@
       <b>Money</b>
       <input type="number" class="w3-input" id="price_input">
       <div class="w3-container" align="center">
-        <button class="w3-btn w3-green w3-margin-bottom w3-margin-top" (click)="save_changes()">Save Chnages</button>
+        <button class="w3-btn w3-green w3-margin-bottom w3-margin-top" (click)="save_changes_local()">Save Chnages</button>
         <button class="w3-btn w3-red w3-margin-bottom w3-margin-top" (click)="dismiss_modal()">Cancel</button>
-        <button class="w3-display-bottomleft w3-margin-left w3-btn w3-deep-purple w3-margin-top w3-margin-bottom" id="db" disabled (click)="delete_broker()">Remove broker</button>
+        <button class="w3-display-bottomleft w3-margin-left w3-btn w3-deep-purple w3-margin-top w3-margin-bottom" id="db" disabled (click)="delete_broker_local()">Remove broker</button>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
     <th class="w3-center">Money</th>
   </tr>
   </thead>
-  <tr *ngFor="let broker of brokers" (click)="show_info(broker)">
+  <tr *ngFor="let broker of get_brokers()" (click)="show_info(broker)">
     <th class="w3-center">{{broker.name}}</th>
     <th class="w3-center">{{broker.price}}</th>
   </tr>
