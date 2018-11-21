@@ -8,7 +8,7 @@ export class Ketter extends Component{
             stocks: props.stock,
             brokers: props.members,
             settings: props.setting
-        }
+        };
         Ketter.showInfo = Ketter.showInfo.bind(this);
         Ketter.dismissmodal = Ketter.dismissmodal.bind(this);
     }
@@ -54,7 +54,7 @@ export class Ketter extends Component{
                         <div className="w3-modal-content">
                             <div className="w3-container">
                                 <div id='brokeraq'> </div>
-                                <button className="w3-btn w3-red w3-margin-bottom w3-margin-top" onClick={Ketter.dismissmodal}>Ok</button>
+                                <button className="w3-btn w3-red w3-margin" onClick={Ketter.dismissmodal}>Ok</button>
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@ export class Loginpage extends Component{
             <div>
                 <p>Welcome to stock market</p>
                 <input type='text' placeholder='enter name' onChange={this.handler}/>
-                <button className='w3-btn w3-green' onClick={this.loginHandler}>Proceed</button>
+                <button className='w3-btn w3-green w3-margin' onClick={this.loginHandler}>Proceed</button>
             </div>
         )
     }

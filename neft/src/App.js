@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Loginpage } from './loginPage/Loginpage'
 import { Ketter } from './AdminPage/Ketter'
+import { Euclid } from './BrokerPage/Euclid'
 import './App.css';
 import $ from 'jquery';
 
@@ -57,10 +58,14 @@ class App extends Component {
             content = <Loginpage login={this.onLogin}/>;
         else if (this.state.username === 'Admin')
             content = <Ketter stock={this.state.stocks} members={this.state.brokers} setting={this.state.settings} />;
+        else {
+                content = <Euclid userID={this.state.username} stock={this.state.stocks} members={this.state.brokers}
+                                  setting={this.state.settings}/>;
+        }
         return (
-            <div className="App">
-                {content}
-            </div>
+        <div className="App">
+            {content}
+        </div>
         );
     }
 }
