@@ -17,7 +17,6 @@ export class SettingsComponent implements OnInit {
   }
 
   save_change() {
-    const self = this;
     const new_day = $('#date_input').val();
     const new_sitme = $('#stime_input').val();
     const new_ftime = $('#ftime_input').val();
