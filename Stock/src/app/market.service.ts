@@ -15,16 +15,32 @@ export class MarketService {
     const new_price = $('#price_input').val();
     const new_law = $('#law_input').val();
     const new_ammount = $('#amm_input').val();
-    const new_stock = {name: new_name, price: new_price, law: new_law, ammount: new_ammount};
 
-    if (current_stock) {
-      self.stocks[current_stock_id] =  <Stock>new_stock;
-    } else {
-      self.stocks.push(<Stock>new_stock);
+    let isHere = false;
+    let isHereId = 0;
+    for (const stock in this.stocks) {
+      if (this.stocks[stock].name === new_name) {
+        isHere = true;
+        if (stock === current_stock_id) {
+          isHereId++;
+        }
+      }
     }
-    $('#modal').hide();
-    $('#db').attr('disabled', 'disabled');
-    this.commitChanges();
+
+    if ((isHere && isHereId === 1) || (!isHere) ) {
+      if ((parseInt(<string>new_price, 10) > 0) && (parseInt(<string>new_ammount, 10) > 0)) {
+        const new_stock = {name: new_name, price: new_price, law: new_law, ammount: new_ammount};
+
+        if (current_stock) {
+          self.stocks[current_stock_id] = <Stock>new_stock;
+        } else {
+          self.stocks.push(<Stock>new_stock);
+        }
+        $('#modal').hide();
+        $('#db').attr('disabled', 'disabled');
+        this.commitChanges();
+      }
+    }
   }
 
   getStockInfo() {

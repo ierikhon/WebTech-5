@@ -21,16 +21,31 @@ export class BrokersService {
     const self = this;
     const new_name = $('#name_input').val();
     const new_price = $('#price_input').val();
-    const new_stock = {name: new_name, price: new_price};
+    const new_stock = {name: new_name, price: new_price, onStocks: 0};
 
-    if (current_broker) {
-      self.brokers[current_broker_id] =  <Broker>new_stock;
-    } else {
-      self.brokers.push(<Broker>new_stock);
+    let isHere = false;
+    let isHereId = 0;
+    for (const stock in this.brokers) {
+      if (this.brokers[stock].name === new_name) {
+        isHere = true;
+        if (stock === current_broker_id) {
+          isHereId++;
+        }
+      }
     }
-    $('#modal').hide();
-    $('#db').attr('disabled', 'disabled');
-    this.commitChanges();
+
+    if ((isHere && isHereId === 1) || (!isHere)) {
+      if (parseInt(<string>new_price, 10) > 0) {
+        if (current_broker) {
+          self.brokers[current_broker_id] = <Broker>new_stock;
+        } else {
+          self.brokers.push(<Broker>new_stock);
+        }
+        $('#modal').hide();
+        $('#db').attr('disabled', 'disabled');
+        this.commitChanges();
+      }
+    }
   }
 
   private commitChanges() {
