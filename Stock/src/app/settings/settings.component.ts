@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit {
     this.settings = <Settings>new_settings;
 
     $.ajax({
-      url: 'http://localhost:3000/settings',
+      url: 'http://localhost:3001/settings',
       method: 'PUT',
       data: {dat: this.settings},
       crossDomain: true
@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit {
 
   private getSettingsInfo() {
     $.ajax({
-      url: 'http://localhost:3000/settings',
+      url: 'http://localhost:3001/settings',
       method: 'GET',
       crossDomain: true,
       success: (data) => { this.settings = data; }

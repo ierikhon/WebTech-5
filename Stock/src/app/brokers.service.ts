@@ -10,7 +10,7 @@ export class BrokersService {
 
   getBrokerInfo() {
     $.ajax({
-      url: 'http://localhost:3000/brokers',
+      url: 'http://localhost:3001/brokers',
       method: 'GET',
       crossDomain: true,
       success: (data) => { this.brokers = data; }
@@ -35,7 +35,7 @@ export class BrokersService {
 
   private commitChanges() {
     $.ajax({
-      url: 'http://localhost:3000/brokers',
+      url: 'http://localhost:3001/brokers',
       method: 'PUT',
       data: {dat: this.brokers},
       crossDomain: true

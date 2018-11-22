@@ -29,7 +29,7 @@ export class MarketService {
 
   getStockInfo() {
     $.ajax({
-      url: 'http://localhost:3000/stocks',
+      url: 'http://localhost:3001/stocks',
       method: 'GET',
       crossDomain: true,
       success: (data) => {
@@ -40,7 +40,7 @@ export class MarketService {
 
   private commitChanges() {
     $.ajax({
-      url: 'http://localhost:3000/stocks',
+      url: 'http://localhost:3001/stocks',
       method: 'PUT',
       data: {dat: this.stocks},
       crossDomain: true

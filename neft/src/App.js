@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { Loginpage } from './loginPage/Loginpage'
 import { Ketter } from './AdminPage/Ketter'
 import { Euclid } from './BrokerPage/Euclid'
+
 import './App.css';
 import $ from 'jquery';
+import * as io from 'socket.io-client'
 
 class App extends Component {
     constructor() {
         super();
         this.getInfo();
+        this.socket = null;
         this.handler = this.handler.bind(this);
         this.getInfo = this.getInfo.bind(this);
         this.onLogin = this.onLogin.bind(this);
@@ -25,7 +28,17 @@ class App extends Component {
     }
 
     onLogin(login){
-        this.setState({username: login})
+        this.setState({username: login});
+
+        this.socket = io.connect('http://localhost:3030');
+
+        this.socket.on("connect", () => {
+            this.socket.json.emit("connected", {"name": this.state.username});
+        });
+
+        this.socket.on('market_update', () => {
+            this.getInfo();
+        });
     }
 
     getInfo(){
@@ -33,7 +46,7 @@ class App extends Component {
             url: 'http://localhost:3001/stocks',
             method: 'GET',
             crossDomain: true,
-            success: (stocksInfo)=>{ this.setState({stocks: JSON.stringify(stocksInfo)}) }
+            success: (stocksInfo)=>{ this.setState({stocks: JSON.stringify(stocksInfo)})}
         });
 
         $.ajax({
