@@ -14,6 +14,8 @@ export class Euclid extends Component{
         this.checkLogin();
         this.handler = this.handler.bind(this);
         this.handleStockChange = this.handleStockChange.bind(this);
+        this.sell = this.sell.bind(this);
+        this.buy = this.buy.bind(this);
     }
 
     checkLogin() {
@@ -35,8 +37,16 @@ export class Euclid extends Component{
                 this.setState({selectedStock: stock})
     }
 
+    buy(){
+        this.props.buy(this.state.user, this.state.selectedStock, this.state.selectedAmmount);
+    }
+
+    sell(){
+        this.props.sell(this.state.user, this.state.selectedStock, this.state.selectedAmmount);
+    }
+
     render(){
-        let jsBrokers = JSON.parse(this.state.brokers);
+        let jsBrokers = JSON.parse(this.props.members);
 
         let jsStocks = JSON.parse(this.props.stock);
 
@@ -71,9 +81,8 @@ export class Euclid extends Component{
                         <p>Resulting Price:  {jsStocks[this.state.selectedStock].price*this.state.selectedAmmount}</p>
                     </div>
                     <div>
-                        <button className='w3-btn w3-margin-bottom w3-green'>Buy</button>
-                        <button className='w3-green w3-margin-bottom w3-red w3-btn'>Sell</button>
-                        {jsStocks[this.state.selectedStock].price}
+                        <button className='w3-btn w3-margin-bottom w3-green' onClick={this.buy}>buy</button>
+                        <button className='w3-green w3-margin-bottom w3-red w3-btn' onClick={this.sell}>Sell</button>
                     </div>
                 </div>
             </div>

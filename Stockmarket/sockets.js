@@ -4,6 +4,11 @@ let settings = require('./data/settings');
 
 for (let stock of stocks){
     stock.price = parseInt(stock.price);
+    stock.ammount = parseInt(stock.ammount.toString());
+}
+
+for (let broker of brokers){
+    broker.onStocks = parseInt(broker.onStocks);
 }
 
 let usernames = [];
@@ -27,7 +32,80 @@ function startSocketServer() {
         socket.on('day_finished', () => {
             traidng = false;
         });
+        socket.on('user_bought', (msg) => {
+            if (traidng) {
+                buyHandler(msg);
+                socket.broadcast.json.emit('market_update', {st: stocks, br: brokers});
+                socket.json.emit('market_update', {st: stocks, br: brokers});
+            }
+        });
+        socket.on('user_sold', (msg) => {
+            if (traidng) {
+                sellHandler(msg);
+                socket.broadcast.json.emit('market_update', {st: stocks, br: brokers});
+                socket.json.emit('market_update', {st: stocks, br: brokers});
+            }
+        });
     })
+}
+
+function buyHandler(msg) {
+    let user = msg.username;
+    let stockID = msg.stock;
+    let ammountt = parseInt(msg.selectedAmmount);
+
+    for (let br of brokers){
+        let already = false;
+        if (br.name === user){
+            if(br.price >= ammountt*stocks[stockID].price && parseInt(stocks[stockID].ammount) >= ammountt){
+                stocks[stockID].ammount -= ammountt;
+                br.price -= ammountt*stocks[stockID].price;
+                if (br.aquisitions) {
+                    for (let aq of br.aquisitions) {
+                        if (aq.ID === stockID) {
+                            aq.ammount += ammountt;
+                            already =  true;
+                        }
+                    }
+                    if (!already){
+                        br.aquisitions.push({name: stocks[stockID].name, ammount: ammountt, ID: stockID});
+                    }
+                } else { br.aquisitions = []; br.aquisitions.push({name: stocks[stockID].name, ammount: ammountt, ID: stockID}); }
+            }
+        }
+    }
+    recountOS();
+}
+
+function sellHandler(msg) {
+    let user = msg.username;
+    let stockID = msg.stock;
+    let ammount = parseInt(msg.selectedAmmount);
+
+    for (let br of brokers){
+        if (br.name === user){
+            for (let aqis of br.aquisitions){
+                if (aqis.ID === stockID){
+                    if(aqis.ammount >= ammount){
+                        stocks[stockID].ammount += ammount;
+                        br.price += ammount*stocks[stockID].price;
+                        aqis.ammount -= ammount;
+                    }
+                }
+            }
+        }
+    }
+    recountOS();
+}
+
+function recountOS() {
+    for (let broker of brokers){
+        if  (broker.aquisitions) {
+            for (let aq of broker.aquisitions) {
+                broker.onStocks = aq.ammount * stocks[aq.ID].price;
+            }
+        }
+    }
 }
 
 /**
@@ -55,14 +133,14 @@ function recountStocks() {
             stock.price += GaussRand()*100;
         }
     }
+    recountOS();
 }
 
 async function timer(socket){
     while(traidng){
         recountStocks();
-        socket.broadcast.json.emit('market_update', {st: stocks, to: timeout});
-        socket.json.emit('market_update', {st: stocks, to: timeout});
-        console.log(time);
+        socket.broadcast.json.emit('market_update', {st: stocks, br: brokers});
+        socket.json.emit('market_update', {st: stocks, br: brokers});
         await sleep(timeout);
     }
 }

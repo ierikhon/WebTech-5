@@ -17,12 +17,15 @@ class App extends Component {
         this.onLogin = this.onLogin.bind(this);
         this.startDay = this.startDay.bind(this);
         this.finishDay = this.finishDay.bind(this);
+        this.sell = this.sell.bind(this);
+        this.buy = this.buy.bind(this);
         this.state = {
             username: '',
             stocks: null,
             brokers: null,
             settings: null,
-            timeout: 0
+            trading: true,
+            message: ''
         };
     }
 
@@ -40,8 +43,30 @@ class App extends Component {
         });
 
         this.socket.on('market_update', (info) => {
-            this.setState({stocks: JSON.stringify(info.st), timeout: info.to})
+            this.setState({stocks: JSON.stringify(info.st), brokers: JSON.stringify(info.br)})
         });
+    }
+
+    buy(userID, stockID, ammount){
+        if (ammount && ammount>0) {
+            if (this.state.trading) {
+                this.setState({message: ''});
+                this.socket.json.emit('user_bought', {username: userID, stock: stockID, selectedAmmount: ammount});
+            } else {
+                this.setState({message: 'Trade has not yet been started'})
+            }
+        } else this.setState({message: 'Incorrect ammount'})
+    }
+
+    sell(userID, stockID, ammount){
+        if (ammount && ammount>0) {
+            if (this.state.trading) {
+                this.setState({message: ''});
+                this.socket.json.emit('user_sold', {username: userID, stock: stockID, selectedAmmount: ammount});
+            } else {
+                this.setState({message: 'Trade has not yet been started'})
+            }
+        } else this.setState({message: 'Incorrect ammount'})
     }
 
     startDay(){
@@ -83,12 +108,13 @@ class App extends Component {
         else if (this.state.username === 'Admin')
             content = <Ketter startDay={this.startDay} finishDay={this.finishDay} stock={this.state.stocks} members={this.state.brokers} setting={this.state.settings} />;
         else {
-                content = <Euclid userID={this.state.username} stock={this.state.stocks} members={this.state.brokers}
+                content = <Euclid buy={this.buy} sell={this.sell} userID={this.state.username} stock={this.state.stocks} members={this.state.brokers}
                                   setting={this.state.settings}/>;
         }
         return (
         <div className="App">
             {content}
+            {this.state.message}
         </div>
         );
     }
