@@ -15,11 +15,14 @@ class App extends Component {
         this.handler = this.handler.bind(this);
         this.getInfo = this.getInfo.bind(this);
         this.onLogin = this.onLogin.bind(this);
+        this.startDay = this.startDay.bind(this);
+        this.finishDay = this.finishDay.bind(this);
         this.state = {
             username: '',
             stocks: null,
             brokers: null,
-            settings: null
+            settings: null,
+            timeout: 0
         };
     }
 
@@ -36,9 +39,17 @@ class App extends Component {
             this.socket.json.emit("connected", {"name": this.state.username});
         });
 
-        this.socket.on('market_update', () => {
-            this.getInfo();
+        this.socket.on('market_update', (info) => {
+            this.setState({stocks: JSON.stringify(info.st), timeout: info.to})
         });
+    }
+
+    startDay(){
+        this.socket.json.emit('day_started');
+    }
+
+    finishDay(){
+        this.socket.json.emit('day_finished');
     }
 
     getInfo(){
@@ -70,7 +81,7 @@ class App extends Component {
         if (this.state.username === '')
             content = <Loginpage login={this.onLogin}/>;
         else if (this.state.username === 'Admin')
-            content = <Ketter stock={this.state.stocks} members={this.state.brokers} setting={this.state.settings} />;
+            content = <Ketter startDay={this.startDay} finishDay={this.finishDay} stock={this.state.stocks} members={this.state.brokers} setting={this.state.settings} />;
         else {
                 content = <Euclid userID={this.state.username} stock={this.state.stocks} members={this.state.brokers}
                                   setting={this.state.settings}/>;

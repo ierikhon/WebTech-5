@@ -11,6 +11,8 @@ export class Ketter extends Component{
         };
         Ketter.showInfo = Ketter.showInfo.bind(this);
         Ketter.dismissmodal = Ketter.dismissmodal.bind(this);
+        this.finishDay = this.finishDay.bind(this);
+        this.startDay = this.startDay.bind(this);
     }
 
     static showInfo(broker){
@@ -23,6 +25,14 @@ export class Ketter extends Component{
 
     static dismissmodal(){
         $('#modal').hide()
+    }
+
+    startDay(){
+        this.props.startDay();
+    }
+
+    finishDay(){
+        this.props.finishDay();
     }
 
     render(){
@@ -64,7 +74,7 @@ export class Ketter extends Component{
         return(
             <div>
                 <p className='w3-xxxlarge'>Admin Page</p>
-                        <table border="3" align="center" className="w3-table w3-striped" id="stock_table">
+                        <table border="3" align="center" className="w3-table w3-striped w3-hoverable" id="stock_table">
                             <thead>
                             <tr>
                                 <th className="w3-center">Name</th>
@@ -76,6 +86,8 @@ export class Ketter extends Component{
                             <BrokersTable broker={JSON.parse(this.state.brokers)}/>
                         </table>
                 <Modal/>
+                <button className='w3-btn w3-green w3-margin-top' onClick={this.startDay}>Start day</button>
+                <button className='w3-btn w3-red w3-margin-top' onClick={this.finishDay}>Finish day</button>
             </div>
         )
     }

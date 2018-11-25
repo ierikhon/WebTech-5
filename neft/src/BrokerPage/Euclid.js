@@ -6,10 +6,9 @@ export class Euclid extends Component{
         super(props);
         this.state = {
             user: props.userID,
-            stocks: JSON.parse(props.stock),
             brokers: props.members,
             settings: props.setting,
-            selectedStock: null
+            selectedStock: '0'
         };
         this.checkLogin = this.checkLogin.bind(this);
         this.checkLogin();
@@ -30,13 +29,16 @@ export class Euclid extends Component{
     }
 
     handleStockChange(event){
-        for (let stock in this.state.stocks)
-            if(this.state.stocks[stock].name === event.name)
+        let jsStocks = JSON.parse(this.props.stock);
+        for (let stock in jsStocks)
+            if(jsStocks[stock].name === event.name)
                 this.setState({selectedStock: stock})
     }
 
     render(){
         let jsBrokers = JSON.parse(this.state.brokers);
+
+        let jsStocks = JSON.parse(this.props.stock);
 
         return(
             <div>
@@ -57,21 +59,21 @@ export class Euclid extends Component{
                             <th className="w3-center">Law</th>
                         </tr>
                         </thead>
-                        <Stockable choosehandler={this.handleStockChange} stocks={this.state.stocks}/>
+                        <Stockable choosehandler={this.handleStockChange} stocks={jsStocks}/>
                     </table>
                 </div>
-                <div className='w3-container w3-border w3-card'>
+                <div className='w3-container w3-margin w3-border w3-card'>
                     <p>Buy and Sell</p>
-
                     <div>
+                        <p>Selected stock: {jsStocks[this.state.selectedStock].name} </p>
                         <b>Ammount</b>
                         <input className='w3-margin' type='number' onChange={this.handler}/>
-                        {this.state.selectedAmmount}
-                        {this.state.selectedStock}
+                        <p>Resulting Price:  {jsStocks[this.state.selectedStock].price*this.state.selectedAmmount}</p>
                     </div>
                     <div>
                         <button className='w3-btn w3-margin-bottom w3-green'>Buy</button>
                         <button className='w3-green w3-margin-bottom w3-red w3-btn'>Sell</button>
+                        {jsStocks[this.state.selectedStock].price}
                     </div>
                 </div>
             </div>
