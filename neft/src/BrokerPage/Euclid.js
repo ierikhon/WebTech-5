@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { Options } from './Options'
+import { Stockable } from "./Stockable";
 
 export class Euclid extends Component{
     constructor(props){
         super(props);
         this.state = {
             user: props.userID,
-            stocks: props.stock,
             brokers: props.members,
             settings: props.setting,
-            selectedStock: null
+            selectedStock: '0'
         };
         this.checkLogin = this.checkLogin.bind(this);
         this.checkLogin();
         this.handler = this.handler.bind(this);
         this.handleStockChange = this.handleStockChange.bind(this);
+        this.sell = this.sell.bind(this);
+        this.buy = this.buy.bind(this);
     }
 
     checkLogin() {
@@ -30,37 +31,24 @@ export class Euclid extends Component{
     }
 
     handleStockChange(event){
-        for (let stock in this.state.stocks)
-            if(this.state.stocks[stock].name === event.name)
+        let jsStocks = JSON.parse(this.props.stock);
+        for (let stock in jsStocks)
+            if(jsStocks[stock].name === event.name)
                 this.setState({selectedStock: stock})
     }
 
+    buy(){
+        this.props.buy(this.state.user, this.state.selectedStock, this.state.selectedAmmount);
+    }
+
+    sell(){
+        this.props.sell(this.state.user, this.state.selectedStock, this.state.selectedAmmount);
+    }
+
     render(){
-        function StocksTableRow(stocks, key){
-            let stock = stocks.stock;
-            return(
-                <tr>
-                    <th className='w3-center'>{stock.name}</th>
-                    <th className='w3-center'>{stock.price}</th>
-                    <th className='w3-center'>{stock.ammount}</th>
-                    <th className="w3-center">{stock.law}</th>
-                </tr>
-            )
-        }
+        let jsBrokers = JSON.parse(this.props.members);
 
-        function Stocktable(stocks) {
-            let rows = [];
-            for(let i in stocks.stocks){
-                rows.push(<StocksTableRow stock={stocks.stocks[i]} key={i}/>);
-            }
-            return(
-                <tbody>{rows}</tbody>
-            )
-        }
-
-        let jsBrokers = JSON.parse(this.state.brokers);
-        let jsStocks = JSON.parse(this.state.stocks);
-
+        let jsStocks = JSON.parse(this.props.stock);
 
         return(
             <div>
@@ -72,7 +60,7 @@ export class Euclid extends Component{
                         <p>In Stocks: {jsBrokers[this.state.userId].onStocks}</p>
                         <p>Total: {parseInt(jsBrokers[this.state.userId].price) + parseInt(jsBrokers[this.state.userId].onStocks)}</p>
                     </div>
-                    <table border="3" align="center" className="w3-col s6 w3-table w3-half" id="stock_table">
+                    <table border="3" align="center" className="w3-col w3-hoverable s6 w3-table w3-half" id="stock_table">
                         <thead>
                         <tr>
                             <th className="w3-center">Name</th>
@@ -81,20 +69,20 @@ export class Euclid extends Component{
                             <th className="w3-center">Law</th>
                         </tr>
                         </thead>
-                        <Stocktable stocks={JSON.parse(this.state.stocks)}/>
+                        <Stockable choosehandler={this.handleStockChange} stocks={jsStocks}/>
                     </table>
                 </div>
-                <div className='w3-container w3-border w3-card'>
+                <div className='w3-container w3-margin w3-border w3-card'>
                     <p>Buy and Sell</p>
-                        <Options stocks={jsStocks} changeHandler={this.handleStockChange}/>
                     <div>
+                        <p>Selected stock: {jsStocks[this.state.selectedStock].name} </p>
                         <b>Ammount</b>
                         <input className='w3-margin' type='number' onChange={this.handler}/>
-
+                        <p>Resulting Price:  {jsStocks[this.state.selectedStock].price*this.state.selectedAmmount}</p>
                     </div>
                     <div>
-                        <button className='w3-btn w3-margin-bottom w3-green'>Buy</button>
-                        <button className='w3-green w3-margin-bottom w3-red w3-btn'>Sell</button>
+                        <button className='w3-btn w3-margin-bottom w3-green' onClick={this.buy}>buy</button>
+                        <button className='w3-green w3-margin-bottom w3-red w3-btn' onClick={this.sell}>Sell</button>
                     </div>
                 </div>
             </div>

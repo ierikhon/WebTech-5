@@ -4,13 +4,10 @@ import $ from 'jquery'
 export class Ketter extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            stocks: props.stock,
-            brokers: props.members,
-            settings: props.setting
-        };
         Ketter.showInfo = Ketter.showInfo.bind(this);
         Ketter.dismissmodal = Ketter.dismissmodal.bind(this);
+        this.finishDay = this.finishDay.bind(this);
+        this.startDay = this.startDay.bind(this);
     }
 
     static showInfo(broker){
@@ -25,11 +22,19 @@ export class Ketter extends Component{
         $('#modal').hide()
     }
 
+    startDay(){
+        this.props.startDay();
+    }
+
+    finishDay(){
+        this.props.finishDay();
+    }
+
     render(){
         function BrokersTableRow(brokers){
             const broker = brokers.broker;
             return(
-                <tr onClick={Ketter.showInfo}>
+                <tr onClick={Ketter.showInfo(broker)}>
                     <th className='w3-center'>{broker.name}</th>
                     <th className='w3-center'>{broker.price}</th>
                     <th className='w3-center'>{broker.onStocks}</th>
@@ -64,7 +69,7 @@ export class Ketter extends Component{
         return(
             <div>
                 <p className='w3-xxxlarge'>Admin Page</p>
-                        <table border="3" align="center" className="w3-table w3-striped" id="stock_table">
+                        <table border="3" align="center" className="w3-table w3-striped w3-hoverable" id="stock_table">
                             <thead>
                             <tr>
                                 <th className="w3-center">Name</th>
@@ -73,9 +78,11 @@ export class Ketter extends Component{
                                 <th className="w3-center">Total</th>
                             </tr>
                             </thead>
-                            <BrokersTable broker={JSON.parse(this.state.brokers)}/>
+                            <BrokersTable broker={JSON.parse(this.props.members)}/>
                         </table>
                 <Modal/>
+                <button className='w3-btn w3-green w3-margin-top' onClick={this.startDay}>Start day</button>
+                <button className='w3-btn w3-red w3-margin-top' onClick={this.finishDay}>Finish day</button>
             </div>
         )
     }
