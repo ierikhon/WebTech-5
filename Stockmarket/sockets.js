@@ -102,7 +102,7 @@ function recountOS() {
     for (let broker of brokers){
         if  (broker.aquisitions) {
             for (let aq of broker.aquisitions) {
-                broker.onStocks = aq.ammount * stocks[aq.ID].price;
+                broker.onStocks += aq.ammount * stocks[aq.ID].price;
             }
         }
     }
