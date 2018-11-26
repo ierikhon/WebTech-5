@@ -1,8 +1,8 @@
 extends layout
 
 block content
-    div(style='height:100%' class='w3-deep-purple w3container')
+    div(style='height:100%' class='w3container')
         div(class='w3-red' style='width:256px; height:256px')
-        canvas(id='canvas' class='w3-display-middle' style='width:512px; height:512px')
+        canvas(id='canvas' class='w3-display-middle' style='image-rendering: pixelated; border: 5px solid black;' width=512 height=512)
         div(class='w3-red' style='width:256px; height:256px')
     script(src='/javascript/mapManager.js')

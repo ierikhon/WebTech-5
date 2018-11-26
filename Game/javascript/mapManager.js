@@ -6,6 +6,7 @@ var mapManager = {
     tSize: {x:32, y:32},
     mapSize: {x:64, y:64},
     tilesets: [],
+    view: {x:0, y:0, w:512, h:512},
     parseMap: function parseMap(tilesJSON) {
         this.mapData = JSON.parse(tilesJSON);
         this.xCount = this.mapData.width;
@@ -29,7 +30,8 @@ var mapManager = {
                 firstgid: t.firstgid,
                 image: img,
                 name: t.name,
-                xCount: Math.floor(t.imageheight)
+                xCount: Math.floor(t.imagewidth / mapManager.tSize.x),
+                yCount: Math.floor(t.imageheight / mapManager.tSize.y)
             };
             this.tilesets.push(ts);
         }
@@ -58,12 +60,16 @@ var mapManager = {
                     var pX = (i % this.xCount)*this.tSize.x;
                     var pY = Math.floor(i / this.xCount)*this.tSize.y;
 
+                    if (!this.isVisible(pX, pY, this.tSize.x, this.tSize.y))
+                        continue;
+                    pX -= this.view.x;
+                    pY -= this.view.y;
                     ctx.drawImage(tile.img, tile.px, tile.py, this.tSize.x, this.tSize.y, pX, pY, this.tSize.x, this.tSize.y)
                 }
             }
         }
     },
-    getTile: function gerTile(tileIndex) {
+    getTile: function getTile(tileIndex) {
         var tile = {
             img: null,
             px:0, py:0
@@ -100,7 +106,8 @@ var mapManager = {
     }
 };
 
-var ctx = $("#canvas")[0].getContext('2d');
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
 mapManager.loadMap();
 mapManager.draw(ctx);
 

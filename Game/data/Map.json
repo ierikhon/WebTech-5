@@ -21,12 +21,30 @@
  "tileheight":32,
  "tilesets":[
         {
+         "columns":16,
          "firstgid":1,
-         "source":"Castle.tsx"
+         "image":"/data/Castle2.png",
+         "imageheight":512,
+         "imagewidth":512,
+         "margin":0,
+         "name":"Castle",
+         "spacing":0,
+         "tilecount":256,
+         "tileheight":32,
+         "tilewidth":32
         }, 
         {
+         "columns":10,
          "firstgid":257,
-         "source":"Grass.tsx"
+         "image":"/data/grass.png",
+         "imageheight":224,
+         "imagewidth":320,
+         "margin":0,
+         "name":"Grass",
+         "spacing":0,
+         "tilecount":70,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",
