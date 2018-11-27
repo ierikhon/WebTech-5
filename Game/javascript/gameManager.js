@@ -4,14 +4,17 @@ class GameManager{
         this.ctx  = canvas.getContext('2d');
         this.entities = [];
         this.factory = {};
-        this.player1 = null;
-        this.player2 = null;
         this.mapManager = mapManager;
         this.spriteManager = spriteManager;
         this.mapManager.loadMap();
         this.spriteManager.loadAtlas("data/sprites.json", "data/spritesheet.png");
-        this.factory['Player1'] = Player1;
-        this.factory['Player2'] = Player2;
+
+        this.factory['Player'] = player;
+        this.factory['Gold'] = gold;
+        this.factory['Skeleton'] = skeleton;
+
+        this.player1 = Object.create(this.factory['Player']);
+        this.mapManager.parseEntities();
 
         this.updateWorld = this.updateWorld.bind(this);
         this.update = this.update.bind(this);
@@ -25,14 +28,14 @@ class GameManager{
                 e.update();
             } catch (e) {}
         });
-        //this.mapManager.centerAt(this.player1.pos_x, this.player1.pos_y);
+        this.mapManager.centerAt(this.player1.pos_x, this.player1.pos_y);
         this.mapManager.draw(this.ctx);
-        Player.draw(this.ctx);
+        player.draw(this.ctx);
         this.draw(this.ctx);
     }
 
     play(){
-        setInterval(this.updateWorld, 20);
+        setInterval(this.updateWorld, 200);
     }
 
     updateWorld(){

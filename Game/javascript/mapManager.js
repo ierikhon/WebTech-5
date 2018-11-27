@@ -110,30 +110,29 @@ var mapManager = {
                 mapManager.parseEntities();
             }, 100);
         } else {
-            for (let j = 0; j < this.mapData.layers.length; j++) {
-                if (this.mapData.layers[j].type === 'objectgroup') {
-                    var entities = this.mapData.layers[j];
-                    for (var i = 0; i < entities.objects.length; i++) {
-                        var e = entities.objects[i];
-                        try {
-                            var obj = Object.create(gameManager.factory[e.type]);
-                            obj.name = e.name;
-                            obj.pos_x = e.x;
-                            obj.pos_y = e.y;
-                            obj.size_x = e.width;
-                            obj.size_y = e.height;
-                            gameManager.entities.push(obj);
-                            if (obj.name === "player1") gameManager.player1 = obj;
-                            if (obj.name === "player2") {
-                                gameManager.player2 = obj;
-                            }
+            try {
+                for (let i=0; i<10; i++) {
+                    var obj = Object.create(game.factory['Gold']);
+                    var guard = Object.create(game.factory['Skeleton']);
+                    obj.name = 'gold'+i;
+                    obj.pos_x = Math.floor(Math.random()*64)*32;
+                    obj.pos_y = Math.floor(Math.random()*64)*32;
+                    obj.size_x = 32;
+                    obj.size_y = 32;
 
-                        } catch (ex) {
-                            console.log("" + e.gid + e.type + ex);
-                        }
-                    }
+                    guard.name = 'guard'+i;
+                    guard.pos_x = obj.pos_x + 32;
+                    guard.pos_y = obj.pos_y;
+                    guard.size_x = 32;
+                    guard.size_y = 32;
+
+                    game.entities.push(guard);
+                    game.entities.push(obj);
                 }
+            } catch (ex) {
+                console.log("" + e.gid + e.type + ex);
             }
+
         }
     },
 

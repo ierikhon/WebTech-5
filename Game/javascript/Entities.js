@@ -3,7 +3,6 @@ var Entity = {
     pos_y: 0,
     size_x: 0,
     size_y: 0,
-    touch: false,
     extend: function(extendProto) {
         var object = Object.create(this);
         for(var property in extendProto) {
@@ -16,6 +15,8 @@ var Entity = {
 };
 
 var Player = Entity.extend({
+    pos_x: Math.floor(Math.random()*64)*32,
+    pos_y: Math.floor(Math.random()*64)*32,
     size_x: 32,
     size_y: 32,
     move_x: 0,
@@ -60,28 +61,7 @@ var Skeleton = Entity.extend({
     }
 });
 
-var Bonfire = Entity.extend({
-    size_x: 32,
-    size_y: 32,
-    move_x: 0,
-    move_y: 0,
-    state: 0,
-    img: 'bonfire_1',
-    draw: function(ctx) {
-        spriteManager.drawSprite(ctx, this.img, this.pos_x, this.pos_y);
-    },
-    update: function() {
-        this.state = (this.state + 1) % 4;
-        if (this.state === 0)
-            this.img = 'bonfire_1';
-        if (this.state === 1)
-            this.img = 'bonfire_2';
-        if (this.state === 2)
-            this.img = 'bonfire_3';
-        if (this.state === 3)
-            this.img = 'bonfire_4';
-    }
-});
 
-var Player1 = Player.extend();
-var Player2 = Player.extend();
+var player = Player.extend();
+var gold = Gold.extend();
+var skeleton = Skeleton.extend();
