@@ -103,14 +103,55 @@ var mapManager = {
         };
         request.open("GET", '/map', true);
         request.send();
+    },
+    parseEntities: function () {
+        if (!mapManager.imgLoaded || !mapManager.jsonLoaded) {
+            setTimeout(function () {
+                mapManager.parseEntities();
+            }, 100);
+        } else {
+            for (let j = 0; j < this.mapData.layers.length; j++) {
+                if (this.mapData.layers[j].type === 'objectgroup') {
+                    var entities = this.mapData.layers[j];
+                    for (var i = 0; i < entities.objects.length; i++) {
+                        var e = entities.objects[i];
+                        try {
+                            var obj = Object.create(gameManager.factory[e.type]);
+                            obj.name = e.name;
+                            obj.pos_x = e.x;
+                            obj.pos_y = e.y;
+                            obj.size_x = e.width;
+                            obj.size_y = e.height;
+                            gameManager.entities.push(obj);
+                            if (obj.name === "player1") gameManager.player1 = obj;
+                            if (obj.name === "player2") {
+                                gameManager.player2 = obj;
+                            }
+
+                        } catch (ex) {
+                            console.log("" + e.gid + e.type + ex);
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    centerAt: function (x, y) {
+        if (x < this.view.w / 2) {
+            this.view.x = 0;
+        } else if (x > this.mapSize.x - this.view.w / 2) {
+            this.view.x = this.mapSize.x - this.view.w;
+        } else {
+            this.view.x = x - (this.view.w / 2);
+        }
+
+        if (y < this.view.h / 3) {
+            this.view.y = 0;
+        } else if (y > this.mapSize.y - this.view.h) {
+            this.view.y = this.mapSize.y - this.view.h;
+        } else {
+            this.view.y = y - (this.view.h / 3);
+        }
     }
 };
-
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-mapManager.loadMap();
-mapManager.draw(ctx);
-
-
-
-
