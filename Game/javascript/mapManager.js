@@ -92,7 +92,7 @@ var mapManager = {
         return null;
     },
     isVisible: function isVisible(x, y, width, height) {
-        return !(x + width < this.view.x || y + height < this.view.y || x > this.view.w || y > this.view.h);
+        return !(x + width < this.view.x || y + height < this.view.y || x > this.view.x + this.view.w || y > this.view.h + this.view.y);
     },
     loadMap: function loadMap() {
         var request = new XMLHttpRequest();
