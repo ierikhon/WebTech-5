@@ -61,7 +61,8 @@ var mapManager = {
                         }
 
                         while(!game.physicsManager.isAcsessible(game.player_2.pos_x, game.player_2.pos_y) ||
-                            game.physicsManager.isClaimed(game.player_2.pos_x, game.player_2.pos_y)){
+                            game.physicsManager.isClaimed(game.player_2.pos_x, game.player_2.pos_y)
+                            || (game.player_1.pos_x === game.player_2.pos_x && game.player_1.pos_y === game.player_2.pos_y)){
                             game.player_2.pos_x = Math.floor(Math.random()*64)*32;
                             game.player_2.pos_y = Math.floor(Math.random()*64)*32;
                         }

@@ -11,6 +11,9 @@ var eventManager = {
               if (game.player1.waypoints !== 0) {
                   game.player1.pos_x -= 32;
                   game.player1.waypoints -= 1;
+                  if (physicsManager.isClaimed(game.player1.pos_x, game.player1.pos_y)){
+                      $('#modal').show();
+                  }
               }
           }
           this.preventOtherActions = false;
@@ -21,6 +24,9 @@ var eventManager = {
               if (game.player1.waypoints !== 0) {
                   game.player1.pos_y -= 32;
                   game.player1.waypoints -= 1;
+                  if (physicsManager.isClaimed(game.player1.pos_x, game.player1.pos_y)){
+                      $('#modal').show();
+                  }
               }
           }
           this.preventOtherActions = false;
@@ -31,6 +37,9 @@ var eventManager = {
               if (game.player1.waypoints !== 0) {
                   game.player1.pos_x += 32;
                   game.player1.waypoints -= 1;
+                  if (physicsManager.isClaimed(game.player1.pos_x, game.player1.pos_y)){
+                      $('#modal').show();
+                  }
               }
           }
           this.preventOtherActions = false;
@@ -41,6 +50,9 @@ var eventManager = {
               if (game.player1.waypoints !== 0) {
                   game.player1.pos_y += 32;
                   game.player1.waypoints -= 1;
+                  if (physicsManager.isClaimed(game.player1.pos_x, game.player1.pos_y)){
+                      $('#modal').show();
+                  }
               }
           }
           this.preventOtherActions = false;

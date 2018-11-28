@@ -14,7 +14,7 @@ var Entity = {
     }
 };
 
-var Player2 = Entity.extend({
+var Player1 = Entity.extend({
     pos_x: Math.floor(Math.random()*64)*32,
     pos_y: Math.floor(Math.random()*64)*32,
     waypoints: 16,
@@ -22,22 +22,7 @@ var Player2 = Entity.extend({
     size_y: 32,
     move_x: 0,
     move_y: 0,
-    draw: function(ctx) {
-        spriteManager.drawSprite(ctx, 'player', this.pos_x, this.pos_y);
-    },
-    update: function() {
-
-    }
-});
-
-var Player1 = Entity.extend({
-    pos_x: Math.floor(Math.random()*64)*32,
-    pos_y: Math.floor(Math.random()*64)*32,
-    waypoints: 160000000,
-    size_x: 32,
-    size_y: 32,
-    move_x: 0,
-    move_y: 0,
+    army: 6,
     draw: function(ctx) {
         spriteManager.drawSprite(ctx, 'player', this.pos_x, this.pos_y);
     },
@@ -51,6 +36,7 @@ var Gold = Entity.extend({
     size_y: 32,
     move_x: 0,
     move_y: 0,
+    ammount: 0,
     draw: function(ctx) {
         spriteManager.drawSprite(ctx, 'gold', this.pos_x, this.pos_y);
     },
@@ -65,6 +51,8 @@ var Skeleton = Entity.extend({
     move_x: 0,
     move_y: 0,
     state: 0,
+    ammount: 0,
+    dammage: 0,
     img: 'guard_1',
     draw: function(ctx) {
         spriteManager.drawSprite(ctx, this.img, this.pos_x, this.pos_y);
@@ -80,6 +68,5 @@ var Skeleton = Entity.extend({
 
 
 var player1 = Player1.extend();
-var player2 = Player2.extend();
 var gold = Gold.extend();
 var skeleton = Skeleton.extend();

@@ -27,7 +27,14 @@ var physicsManager = {
        this.claimedPositions.push({x:x, y:y});
     },
     isClaimed: function (x, y) {
-        return ({x:x, y:y} in this.claimedPositions);
+        let isHere = false;
+        for (pos of this.claimedPositions){
+            if (pos.x == x & pos.y == y){
+                isHere = true;
+                break;
+            }
+        }
+        return isHere;
     }
 
 };
