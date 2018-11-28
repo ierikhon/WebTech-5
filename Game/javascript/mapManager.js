@@ -72,7 +72,7 @@ var mapManager = {
     getTile: function getTile(tileIndex) {
         var tile = {
             img: null,
-            px:0, py:0
+            px:0, py:0,
         };
         var tileset = this.getTileset(tileIndex);
         tile.img = tileset.image;
@@ -119,6 +119,7 @@ var mapManager = {
                     obj.pos_y = Math.floor(Math.random()*64)*32;
                     obj.size_x = 32;
                     obj.size_y = 32;
+                    obj.guard = guard;
 
                     guard.name = 'guard'+i;
                     guard.pos_x = obj.pos_x + 32;
@@ -130,7 +131,6 @@ var mapManager = {
                     game.entities.push(obj);
                 }
             } catch (ex) {
-                console.log("" + e.gid + e.type + ex);
             }
 
         }

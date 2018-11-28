@@ -31,6 +31,11 @@
          "spacing":0,
          "tilecount":256,
          "tileheight":32,
+         "tiles":[
+                {
+                 "id":192,
+                 "type":"unav"
+                }],
          "tilewidth":32
         }, 
         {
@@ -44,6 +49,79 @@
          "spacing":0,
          "tilecount":70,
          "tileheight":32,
+         "tiles":[
+                {
+                 "id":40,
+                 "type":"unav"
+                }, 
+                {
+                 "id":41,
+                 "type":"unav"
+                }, 
+                {
+                 "id":42,
+                 "type":"unav"
+                }, 
+                {
+                 "id":45,
+                 "type":"unav"
+                }, 
+                {
+                 "id":46,
+                 "type":"unav"
+                }, 
+                {
+                 "id":47,
+                 "type":"unav"
+                }, 
+                {
+                 "id":50,
+                 "type":"unav"
+                }, 
+                {
+                 "id":51,
+                 "type":"unav"
+                }, 
+                {
+                 "id":52,
+                 "type":"unav"
+                }, 
+                {
+                 "id":55,
+                 "type":"unav"
+                }, 
+                {
+                 "id":56,
+                 "type":"unav"
+                }, 
+                {
+                 "id":57,
+                 "type":"unav"
+                }, 
+                {
+                 "id":60,
+                 "type":"unav"
+                }, 
+                {
+                 "id":61,
+                 "type":"unav"
+                }, 
+                {
+                 "id":62,
+                 "type":"unav"
+                }, 
+                {
+                 "id":65,
+                 "type":"unav"
+                }, 
+                {
+                 "id":66,
+                 "type":"unav"
+                }, 
+                {
+                 "id":67,
+                 "type":"unav"
+                }],
          "tilewidth":32
         }],
  "tilewidth":32,

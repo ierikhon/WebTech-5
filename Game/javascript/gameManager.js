@@ -6,14 +6,19 @@ class GameManager{
         this.factory = {};
         this.mapManager = mapManager;
         this.spriteManager = spriteManager;
+        this.eventManager = eventManager;
         this.mapManager.loadMap();
+        this.eventManager.setup();
         this.spriteManager.loadAtlas("data/sprites.json", "data/spritesheet.png");
 
-        this.factory['Player'] = player;
+        this.factory['Player1'] = player1;
+        this.factory['Player2'] = player2;
         this.factory['Gold'] = gold;
         this.factory['Skeleton'] = skeleton;
 
-        this.player1 = Object.create(this.factory['Player']);
+        this.player_1 = Object.create(this.factory['Player1']);
+        this.player_2 = Object.create(this.factory['Player2']);
+        this.player1 = this.player_1;
         this.mapManager.parseEntities();
 
         this.updateWorld = this.updateWorld.bind(this);
@@ -30,7 +35,8 @@ class GameManager{
         });
         this.mapManager.centerAt(this.player1.pos_x, this.player1.pos_y);
         this.mapManager.draw(this.ctx);
-        player.draw(this.ctx);
+        this.player_1.draw(this.ctx);
+        this.player_2.draw(this.ctx);
         this.draw(this.ctx);
     }
 
