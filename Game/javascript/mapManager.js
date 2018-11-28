@@ -31,7 +31,8 @@ var mapManager = {
                 image: img,
                 name: t.name,
                 xCount: Math.floor(t.imagewidth / mapManager.tSize.x),
-                yCount: Math.floor(t.imageheight / mapManager.tSize.y)
+                yCount: Math.floor(t.imageheight / mapManager.tSize.y),
+                tiles: t.tiles
             };
             this.tilesets.push(ts);
         }
@@ -51,6 +52,17 @@ var mapManager = {
                     var layer = this.mapData.layers[id];
                     if (layer.type === 'tilelayer') {
                         this.tLayer = layer;
+                        game.physicsManager.initiate();
+                        game.mapManager.parseEntities();
+                        while(!game.physicsManager.isAcsessible(game.player_1.pos_x, game.player_1.pos_y)){
+                            game.player_1.pos_x = Math.floor(Math.random()*64)*32;
+                            game.player_1.pos_y = Math.floor(Math.random()*64)*32;
+                        }
+
+                        while(!game.physicsManager.isAcsessible(game.player_2.pos_x, game.player_2.pos_y)){
+                            game.player_2.pos_x = Math.floor(Math.random()*64)*32;
+                            game.player_2.pos_y = Math.floor(Math.random()*64)*32;
+                        }
                         break;
                     }
                 }
@@ -73,15 +85,27 @@ var mapManager = {
         var tile = {
             img: null,
             px:0, py:0,
+            acsess: true
         };
         var tileset = this.getTileset(tileIndex);
         tile.img = tileset.image;
         var id = tileIndex - tileset.firstgid;
+        if (tileset.tiles){
+            for (let til of tileset.tiles){
+                if (id === til.id){
+                    tile.acsess = false;
+                }
+            }
+        }
         var x = id % tileset.xCount;
         var y = Math.floor(id / tileset.xCount);
         tile.px = x * mapManager.tSize.x;
         tile.py = y * mapManager.tSize.y;
         return tile;
+    },
+    isAcsess: function(tileIndex){
+        let tile = this.getTile(tileIndex);
+        return tile.acsess;
     },
     getTileset: function getTileset(tileIndex) {
         for (let i = mapManager.tilesets.length - 1; i>=0; i--){
@@ -115,22 +139,29 @@ var mapManager = {
                     var obj = Object.create(game.factory['Gold']);
                     var guard = Object.create(game.factory['Skeleton']);
                     obj.name = 'gold'+i;
-                    obj.pos_x = Math.floor(Math.random()*64)*32;
-                    obj.pos_y = Math.floor(Math.random()*64)*32;
                     obj.size_x = 32;
                     obj.size_y = 32;
                     obj.guard = guard;
 
                     guard.name = 'guard'+i;
-                    guard.pos_x = obj.pos_x + 32;
-                    guard.pos_y = obj.pos_y;
                     guard.size_x = 32;
                     guard.size_y = 32;
 
+                    obj.pos_x = Math.floor(Math.random()*64)*32;
+                    obj.pos_y = Math.floor(Math.random()*64)*32;
+
+
+                    while(!physicsManager.isAcsessible(obj.pos_x, obj.pos_y)) {
+                        obj.pos_x = Math.floor(Math.random()*64)*32;
+                        obj.pos_y = Math.floor(Math.random()*64)*32;
+                    }
+                    guard.pos_x = obj.pos_x + 32;
+                    guard.pos_y = obj.pos_y;
                     game.entities.push(guard);
                     game.entities.push(obj);
                 }
             } catch (ex) {
+                console.log(ex);
             }
 
         }

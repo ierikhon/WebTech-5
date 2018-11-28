@@ -7,6 +7,7 @@ class GameManager{
         this.mapManager = mapManager;
         this.spriteManager = spriteManager;
         this.eventManager = eventManager;
+        this.physicsManager = physicsManager;
         this.mapManager.loadMap();
         this.eventManager.setup();
         this.spriteManager.loadAtlas("data/sprites.json", "data/spritesheet.png");
@@ -18,13 +19,14 @@ class GameManager{
 
         this.player_1 = Object.create(this.factory['Player1']);
         this.player_2 = Object.create(this.factory['Player2']);
+
         this.player1 = this.player_1;
-        this.mapManager.parseEntities();
 
         this.updateWorld = this.updateWorld.bind(this);
         this.update = this.update.bind(this);
         this.play = this.play.bind(this);
         this.draw = this.draw.bind(this);
+
     }
 
     update(){

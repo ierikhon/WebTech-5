@@ -17,7 +17,7 @@ var Entity = {
 var Player2 = Entity.extend({
     pos_x: Math.floor(Math.random()*64)*32,
     pos_y: Math.floor(Math.random()*64)*32,
-    waypoints: 16000000,
+    waypoints: 16,
     size_x: 32,
     size_y: 32,
     move_x: 0,
@@ -33,7 +33,7 @@ var Player2 = Entity.extend({
 var Player1 = Entity.extend({
     pos_x: Math.floor(Math.random()*64)*32,
     pos_y: Math.floor(Math.random()*64)*32,
-    waypoints: 16000000,
+    waypoints: 160000000,
     size_x: 32,
     size_y: 32,
     move_x: 0,
