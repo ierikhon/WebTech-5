@@ -54,12 +54,14 @@ var mapManager = {
                         this.tLayer = layer;
                         game.physicsManager.initiate();
                         game.mapManager.parseEntities();
-                        while(!game.physicsManager.isAcsessible(game.player_1.pos_x, game.player_1.pos_y)){
+                        while(!game.physicsManager.isAcsessible(game.player_1.pos_x, game.player_1.pos_y) ||
+                                game.physicsManager.isClaimed(game.player_1.pos_x, game.player_1.pos_y)){
                             game.player_1.pos_x = Math.floor(Math.random()*64)*32;
                             game.player_1.pos_y = Math.floor(Math.random()*64)*32;
                         }
 
-                        while(!game.physicsManager.isAcsessible(game.player_2.pos_x, game.player_2.pos_y)){
+                        while(!game.physicsManager.isAcsessible(game.player_2.pos_x, game.player_2.pos_y) ||
+                            game.physicsManager.isClaimed(game.player_2.pos_x, game.player_2.pos_y)){
                             game.player_2.pos_x = Math.floor(Math.random()*64)*32;
                             game.player_2.pos_y = Math.floor(Math.random()*64)*32;
                         }
@@ -151,12 +153,17 @@ var mapManager = {
                     obj.pos_y = Math.floor(Math.random()*64)*32;
 
 
-                    while(!physicsManager.isAcsessible(obj.pos_x, obj.pos_y)) {
+                    while (!game.physicsManager.isAcsessible(obj.pos_x, obj.pos_y)
+                        || !game.physicsManager.isAcsessible(obj.pos_x + 32, obj.pos_y) ||
+                            game.physicsManager.isClaimed(obj.pos_x, obj.pos_y) ||
+                            game.physicsManager.isClaimed(obj.pos_x + 32, obj.pos_y)) {
                         obj.pos_x = Math.floor(Math.random()*64)*32;
                         obj.pos_y = Math.floor(Math.random()*64)*32;
                     }
                     guard.pos_x = obj.pos_x + 32;
                     guard.pos_y = obj.pos_y;
+                    game.physicsManager.claimPosition(obj.pos_x, obj.pos_y);
+                    game.physicsManager.claimPosition(obj.pos_x+32, obj.pos_y);
                     game.entities.push(guard);
                     game.entities.push(obj);
                 }

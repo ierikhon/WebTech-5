@@ -1,5 +1,6 @@
 var physicsManager = {
    unacsessibleTileIDs: [],
+   claimedPositions: [],
    initiate: function () {
        let buffer_obj = {};
        for (let i=0; i<mapManager.tLayer.data.length; i++){
@@ -21,6 +22,12 @@ var physicsManager = {
            }
        }
        return here;
-   }
+   },
+    claimPosition: function(x, y){
+       this.claimedPositions.push({x:x, y:y});
+    },
+    isClaimed: function (x, y) {
+        return ({x:x, y:y} in this.claimedPositions);
+    }
 
 };
