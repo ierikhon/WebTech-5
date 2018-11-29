@@ -11,7 +11,7 @@ var eventManager = {
       let player1 = eventManager.players[eventManager.actual];
       let player2 = eventManager.players[vsIndex];
 
-      let losses = Math.floor(player2.army * Math.round(Math.random() + 1));
+      let losses = player2.army;
       eventManager.outcome = losses;
       eventManager.income = parseInt(player2.gold);
       if (losses >= player1.army)
@@ -169,7 +169,7 @@ function attack_pvp() {
 
     if (eventManager.players[eventManager.actual].army <= 0) {
         $('#modal_end').show();
-        $('#3').text('Player ' + eventManager.actual+1 + ' defeated!')
+        $('#3').text('Player ' + eventManager.actual + ' defeated!')
     } else
     {
         $('#modal_end').show();
