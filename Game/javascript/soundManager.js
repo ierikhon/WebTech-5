@@ -93,4 +93,4 @@ function playSound(buffer) {
     sound.loop = true;
     sound.start(0);
 }
-loadSound();
+//loadSound();

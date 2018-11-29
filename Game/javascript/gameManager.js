@@ -20,7 +20,9 @@ class GameManager{
         this.player_1 = Object.create(this.factory['Player1']);
         this.player_2 = Object.create(this.factory['Player1']);
 
-        this.player1 = this.player_1;
+        this.eventManager.players.push(this.player_1);
+        this.eventManager.players.push(this.player_2);
+        this.eventManager.actual = 0;
 
         this.soundManager.init();
         this.soundManager.load('/data/Ambient.mp3', (clip)=>{console.log(clip)});
@@ -39,13 +41,13 @@ class GameManager{
                 e.update();
             } catch (e) {}
         });
-        this.mapManager.centerAt(this.player1.pos_x, this.player1.pos_y);
+        this.mapManager.centerAt(this.eventManager.players[eventManager.actual].pos_x, this.eventManager.players[eventManager.actual].pos_y);
         this.mapManager.draw(this.ctx);
         this.player_1.draw(this.ctx);
         this.player_2.draw(this.ctx);
         this.draw(this.ctx);
-        $('#pl1a').val('Army: ' + this.player_1.army + '    ' + 'Steps: ' + this.player_1.waypoints + '/16');
-        $('#pl2a').val('Army: ' + this.player_2.army + '    ' + 'Steps: ' + this.player_2.waypoints + '/16') ;
+        $('#pl1a').val('Army: ' + this.eventManager.players[eventManager.actual].army + ' ' + 'Gold: ' + this.eventManager.players[eventManager.actual].gold);
+        $('#pl1b').val('Steps: ' + this.eventManager.players[eventManager.actual].waypoints + '/16');
     }
 
     play(){
@@ -62,6 +64,26 @@ class GameManager{
             this.entities[e].draw(ctx);
         }
     }
+
+    getguard(pos_x, pos_y) {
+        for (let entity of this.entities){
+            if (entity.pos_x === pos_x && entity.pos_y === pos_y){
+                if (entity.guard)
+                    return entity.guard;
+                return entity;
+            }
+        }
+    }
+}
+
+function purchase(){
+    let ammount = $('#pl1amm').val();
+    if (ammount>0 && ammount*500 <= game.eventManager.players[game.eventManager.actual].gold){
+        game.eventManager.players[game.eventManager.actual].army = parseInt(game.eventManager.players[game.eventManager.actual].army) + parseInt(ammount);
+        game.eventManager.players[game.eventManager.actual].gold -= ammount*500;
+        console.log('awsasfsaf0');
+    }
+    else { $('#Message').val('Wrong value') }
 }
 
 var canvas = document.getElementById('canvas');

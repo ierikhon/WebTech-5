@@ -100,9 +100,10 @@ function sellHandler(msg) {
 
 function recountOS() {
     for (let broker of brokers){
+        broker.onStocks = 0;
         if  (broker.aquisitions) {
             for (let aq of broker.aquisitions) {
-                broker.onStocks = aq.ammount * stocks[aq.ID].price;
+                broker.onStocks += aq.ammount * stocks[aq.ID].price;
             }
         }
     }

@@ -3,21 +3,23 @@ extends layout
 block content
     include fight_modal
     div(style='height:100%' class='w3-container')
-        div(class='w3-red' style='width:256px; height:400px')
-            p Controls: p ←, →, ↑, ↓ to move
+        div(class='w3-red' style='width:256px; height:300px')
+            p Controls: ←, →, ↑, ↓ to move
             p You can walk 16 steps each turn
             p End turn by pressing Enter
-            p
-            p In fight:
-            p Atteck - forces your units to attack enemy
-            p Defend - Your units do not attack and take 50% less dammage from next enemy attack
-            p
+            p New unit costs 500 gold
+            p ------------------------
             p Music - "The Witcher 3 - Kaer Morchen theeme (Gingertail Cover)
         div(class='w3-container')
-            p Player1:
-            input(type='text' disabled id='pl1a')
-            p Player2:
-            input(type='text' disabled id='pl2a')
+            p Player Info:
+            div
+                input(class='w3-button w3-round-large w3-deep-purple' type='text' disabled id='pl1a')
+                input(class='w3-button w3-round-large w3-deep-purple' type='text' disabled id='pl1b')
+            div
+                input(type='number' id='pl1amm')
+                button(id='buy' class='w3-btn w3-round-large w3-margin w3-green' onclick='purchase()') Purchase Units
+            input(type='text' id='Message' disabled)
+            button(id='fin' class='w3-btn w3-round-large w3-margin w3-green' onclick='endTurn()') End turn
         canvas(id='canvas' class='w3-display-middle' style='image-rendering: pixelated; border: 5px solid black;' width=512 height=512)
     script(src='/javascript/Entities.js')
     script(src='/javascript/physicsManager.js')

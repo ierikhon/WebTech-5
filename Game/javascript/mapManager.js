@@ -145,10 +145,12 @@ var mapManager = {
                     obj.size_x = 32;
                     obj.size_y = 32;
                     obj.guard = guard;
+                    obj.ammount = Math.floor(Math.random()*500)+100;
 
                     guard.name = 'guard'+i;
                     guard.size_x = 32;
                     guard.size_y = 32;
+                    guard.ammount = Math.floor(Math.random()*18)+1;
 
                     obj.pos_x = Math.floor(Math.random()*64)*32;
                     obj.pos_y = Math.floor(Math.random()*64)*32;

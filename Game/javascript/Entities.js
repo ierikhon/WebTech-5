@@ -23,6 +23,7 @@ var Player1 = Entity.extend({
     move_x: 0,
     move_y: 0,
     army: 6,
+    gold: 1000,
     draw: function(ctx) {
         spriteManager.drawSprite(ctx, 'player', this.pos_x, this.pos_y);
     },
