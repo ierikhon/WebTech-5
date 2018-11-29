@@ -167,14 +167,51 @@ function attack_pvp() {
     eventManager.players[eventManager.actual].pos_y = eventManager.curPos.y;
     $('#modal_pvp').hide();
 
+    $('#modal_end').show();
     if (eventManager.players[eventManager.actual].army <= 0) {
-        $('#modal_end').show();
-        $('#3').text('Player ' + eventManager.actual + ' defeated!')
+        $('#3').text('Player ' + eventManager.actual + ' defeated!');
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState === 4 && request.status === 200){
+                let records_data = JSON.parse(request.responseText);
+                if (records_data.army < eventManager.players[eventManager.versus].army)
+                    records_data.army = eventManager.players[eventManager.versus].army;
+                if (records_data.gold < eventManager.players[eventManager.versus].gold)
+                    records_data.gold = eventManager.players[eventManager.versus].gold;
+                $('#rec').text('Max army: ' + records_data.army + '     Max gold: ' + records_data.gold);
+                $.ajax({
+                    url: '/set',
+                    method: 'PUT',
+                    data: records_data
+                });
+            }
+        };
+        request.open("GET", '/data/records.json', true);
+        request.send();
     } else
     {
-        $('#modal_end').show();
-        $('#3').text('Player ' + eventManager.versus + ' defeated!')
+        $('#3').text('Player' + eventManager.versus + ' defeated!');
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState === 4 && request.status === 200){
+                let records_data = JSON.parse(request.responseText);
+                if (records_data.army < eventManager.players[eventManager.actual].army)
+                    records_data.army = eventManager.players[eventManager.actual].army;
+                if (records_data.gold < eventManager.players[eventManager.actual].gold)
+                    records_data.gold = eventManager.players[eventManager.actual].gold;
+                $('#rec').text('Max army: ' + records_data.army + '     Max gold: ' + records_data.gold);
+                $.ajax({
+                    url: '/set',
+                    method: 'PUT',
+                    data: records_data
+                });
+            }
+        };
+        request.open("GET", '/data/records.json', true);
+        request.send();
     }
+
+
 }
 
 function gameover() {
