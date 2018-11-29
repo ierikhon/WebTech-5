@@ -138,20 +138,21 @@ var mapManager = {
             }, 100);
         } else {
             try {
-                for (let i=0; i<10; i++) {
+                for (let i=0; i<20; i++) {
                     var obj = Object.create(game.factory['Gold']);
                     var guard = Object.create(game.factory['Skeleton']);
                     obj.name = 'gold'+i;
                     obj.size_x = 32;
                     obj.size_y = 32;
                     obj.guard = guard;
-                    obj.ammount = Math.floor(Math.random()*500)+100;
+
 
                     guard.name = 'guard'+i;
                     guard.size_x = 32;
                     guard.size_y = 32;
+                    guard.treasure = obj;
                     guard.ammount = Math.floor(Math.random()*18)+1;
-
+                    obj.ammount = Math.floor(Math.random()*500)-100 + guard.ammount*400;
                     obj.pos_x = Math.floor(Math.random()*64)*32;
                     obj.pos_y = Math.floor(Math.random()*64)*32;
 

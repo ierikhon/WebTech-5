@@ -35,6 +35,13 @@ var physicsManager = {
             }
         }
         return isHere;
+    },
+    unclaimPosition: function (x, y) {
+        for (let index in this.claimedPositions){
+            if (this.claimedPositions[index].x === x && this.claimedPositions[index].y === y){
+                this.claimedPositions.splice(index, 1);
+            }
+        }
     }
 
 };

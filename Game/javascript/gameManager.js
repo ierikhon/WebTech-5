@@ -74,16 +74,24 @@ class GameManager{
             }
         }
     }
-}
 
-function purchase(){
-    let ammount = $('#pl1amm').val();
-    if (ammount>0 && ammount*500 <= game.eventManager.players[game.eventManager.actual].gold){
-        game.eventManager.players[game.eventManager.actual].army = parseInt(game.eventManager.players[game.eventManager.actual].army) + parseInt(ammount);
-        game.eventManager.players[game.eventManager.actual].gold -= ammount*500;
-        console.log('awsasfsaf0');
+    gettreasure(pos_x, pos_y) {
+        for (let entity of this.entities){
+            if (entity.pos_x === pos_x && entity.pos_y === pos_y){
+                if (entity.treasure)
+                    return entity.treasure;
+                return entity;
+            }
+        }
     }
-    else { $('#Message').val('Wrong value') }
+
+    eraseentity(pos_x, pos_y) {
+        for (let index in this.entities){
+            if (this.entities[index].pos_x === pos_x && this.entities[index].pos_y === pos_y){
+                this.entities.splice(index, 1);
+            }
+        }
+    }
 }
 
 var canvas = document.getElementById('canvas');
