@@ -6,6 +6,7 @@ var mapManager = {
     tSize: {x:32, y:32},
     mapSize: {x:64, y:64},
     tilesets: [],
+    view: {x:0, y:0, w:512, h:512},
     parseMap: function parseMap(tilesJSON) {
         this.mapData = JSON.parse(tilesJSON);
         this.xCount = this.mapData.width;
@@ -29,7 +30,9 @@ var mapManager = {
                 firstgid: t.firstgid,
                 image: img,
                 name: t.name,
-                xCount: Math.floor(t.imageheight)
+                xCount: Math.floor(t.imagewidth / mapManager.tSize.x),
+                yCount: Math.floor(t.imageheight / mapManager.tSize.y),
+                tiles: t.tiles
             };
             this.tilesets.push(ts);
         }
@@ -49,6 +52,20 @@ var mapManager = {
                     var layer = this.mapData.layers[id];
                     if (layer.type === 'tilelayer') {
                         this.tLayer = layer;
+                        game.physicsManager.initiate();
+                        game.mapManager.parseEntities();
+                        while(!game.physicsManager.isAcsessible(game.player_1.pos_x, game.player_1.pos_y) ||
+                                game.physicsManager.isClaimed(game.player_1.pos_x, game.player_1.pos_y)){
+                            game.player_1.pos_x = Math.floor(Math.random()*64)*32;
+                            game.player_1.pos_y = Math.floor(Math.random()*64)*32;
+                        }
+
+                        while(!game.physicsManager.isAcsessible(game.player_2.pos_x, game.player_2.pos_y) ||
+                            game.physicsManager.isClaimed(game.player_2.pos_x, game.player_2.pos_y)
+                            || (game.player_1.pos_x === game.player_2.pos_x && game.player_1.pos_y === game.player_2.pos_y)){
+                            game.player_2.pos_x = Math.floor(Math.random()*64)*32;
+                            game.player_2.pos_y = Math.floor(Math.random()*64)*32;
+                        }
                         break;
                     }
                 }
@@ -58,24 +75,40 @@ var mapManager = {
                     var pX = (i % this.xCount)*this.tSize.x;
                     var pY = Math.floor(i / this.xCount)*this.tSize.y;
 
+                    if (!this.isVisible(pX, pY, this.tSize.x, this.tSize.y))
+                        continue;
+                    pX -= this.view.x;
+                    pY -= this.view.y;
                     ctx.drawImage(tile.img, tile.px, tile.py, this.tSize.x, this.tSize.y, pX, pY, this.tSize.x, this.tSize.y)
                 }
             }
         }
     },
-    getTile: function gerTile(tileIndex) {
+    getTile: function getTile(tileIndex) {
         var tile = {
             img: null,
-            px:0, py:0
+            px:0, py:0,
+            acsess: true
         };
         var tileset = this.getTileset(tileIndex);
         tile.img = tileset.image;
         var id = tileIndex - tileset.firstgid;
+        if (tileset.tiles){
+            for (let til of tileset.tiles){
+                if (id === til.id){
+                    tile.acsess = false;
+                }
+            }
+        }
         var x = id % tileset.xCount;
         var y = Math.floor(id / tileset.xCount);
         tile.px = x * mapManager.tSize.x;
         tile.py = y * mapManager.tSize.y;
         return tile;
+    },
+    isAcsess: function(tileIndex){
+        let tile = this.getTile(tileIndex);
+        return tile.acsess;
     },
     getTileset: function getTileset(tileIndex) {
         for (let i = mapManager.tilesets.length - 1; i>=0; i--){
@@ -86,7 +119,7 @@ var mapManager = {
         return null;
     },
     isVisible: function isVisible(x, y, width, height) {
-        return !(x + width < this.view.x || y + height < this.view.y || x > this.view.w || y > this.view.h);
+        return !(x + width < this.view.x || y + height < this.view.y || x > this.view.x + this.view.w || y > this.view.h + this.view.y);
     },
     loadMap: function loadMap() {
         var request = new XMLHttpRequest();
@@ -97,13 +130,69 @@ var mapManager = {
         };
         request.open("GET", '/map', true);
         request.send();
+    },
+    parseEntities: function () {
+        if (!mapManager.imgLoaded || !mapManager.jsonLoaded) {
+            setTimeout(function () {
+                mapManager.parseEntities();
+            }, 100);
+        } else {
+            try {
+                for (let i=0; i<15; i++) {
+                    var obj = Object.create(game.factory['Gold']);
+                    var guard = Object.create(game.factory['Skeleton']);
+                    obj.name = 'gold'+i;
+                    obj.size_x = 32;
+                    obj.size_y = 32;
+                    obj.guard = guard;
+
+
+                    guard.name = 'guard'+i;
+                    guard.size_x = 32;
+                    guard.size_y = 32;
+                    guard.treasure = obj;
+                    guard.ammount = Math.floor(Math.random()*18)+1;
+                    obj.ammount = Math.floor(Math.random()*500)-100 + guard.ammount*400;
+                    obj.pos_x = Math.floor(Math.random()*64)*32;
+                    obj.pos_y = Math.floor(Math.random()*64)*32;
+
+
+                    while (!game.physicsManager.isAcsessible(obj.pos_x, obj.pos_y)
+                        || !game.physicsManager.isAcsessible(obj.pos_x + 32, obj.pos_y) ||
+                            game.physicsManager.isClaimed(obj.pos_x, obj.pos_y) ||
+                            game.physicsManager.isClaimed(obj.pos_x + 32, obj.pos_y)) {
+                        obj.pos_x = Math.floor(Math.random()*64)*32;
+                        obj.pos_y = Math.floor(Math.random()*64)*32;
+                    }
+                    guard.pos_x = obj.pos_x + 32;
+                    guard.pos_y = obj.pos_y;
+                    game.physicsManager.claimPosition(obj.pos_x, obj.pos_y);
+                    game.physicsManager.claimPosition(obj.pos_x+32, obj.pos_y);
+                    game.entities.push(guard);
+                    game.entities.push(obj);
+                }
+            } catch (ex) {
+                console.log(ex);
+            }
+
+        }
+    },
+
+    centerAt: function (x, y) {
+        if (x < this.view.w / 2) {
+            this.view.x = 0;
+        } else if (x > this.mapSize.x - this.view.w / 2) {
+            this.view.x = this.mapSize.x - this.view.w;
+        } else {
+            this.view.x = x - (this.view.w / 2);
+        }
+
+        if (y < this.view.h / 3) {
+            this.view.y = 0;
+        } else if (y > this.mapSize.y - this.view.h) {
+            this.view.y = this.mapSize.y - this.view.h;
+        } else {
+            this.view.y = y - (this.view.h / 3);
+        }
     }
 };
-
-var ctx = $("#canvas")[0].getContext('2d');
-mapManager.loadMap();
-mapManager.draw(ctx);
-
-
-
-

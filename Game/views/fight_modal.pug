@@ -1,0 +1,13 @@
+div(id='modal' class='w3-modal')
+    div(class='w3-modal-content')
+        div(class='w3-container')
+            div(align='center')
+                p Fight!
+                p(id='1')
+                p(id='2')
+                input(type='text' class='w3-green w3-left w3-container' disabled id='left')
+                input(type='text' class='w3-red w3-right w3-container' disabled id='right')
+
+                button(onclick='run()' class='w3-btn w3-margin-bottom w3-green') Back off
+                button(onclick='attack()' class='w3-btn w3-margin-bottom w3-red') Attack
+
