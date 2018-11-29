@@ -73,9 +73,9 @@ var soundManager = {
 };
 
 var context = new AudioContext();
-function loadSound() {
+function loadSound(path) {
     var request = new XMLHttpRequest();
-    request.open('GET', '/data/Ambient.mp3', true);
+    request.open('GET', path, true);
     request.responseType = 'arraybuffer';
     request.onload = function () {
         context.decodeAudioData(request.response, function (buffer) {
@@ -93,4 +93,4 @@ function playSound(buffer) {
     sound.loop = true;
     sound.start(0);
 }
-loadSound();
+loadSound('/data/Ambient.mp3');

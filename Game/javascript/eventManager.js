@@ -25,11 +25,12 @@ var eventManager = {
       $('#right2').val('Enemy Army: ' + player2.army);
     },
     fight: function (pos_x, pos_y, army) {
+        loadSound('/data/Amb.mp3');
         eventManager.curPos.x = pos_x;
         eventManager.curPos.y = pos_y;
         eventManager.guard = game.getguard(pos_x, pos_y);
         eventManager.treasure = game.gettreasure(pos_x, pos_y);
-        let losses = Math.floor(eventManager.guard.ammount * Math.round(Math.random() + 1) / 4);
+        let losses = Math.floor(eventManager.guard.ammount * Math.round(Math.random() + 1));
         eventManager.outcome = losses;
         eventManager.income = parseInt(eventManager.treasure.ammount);
         if (losses >= eventManager.players[eventManager.actual].army)
@@ -132,7 +133,7 @@ function endTurn() {
         } else {
             eventManager.actual = 0;
         }
-        eventManager.players[eventManager.actual].waypoints = 16;
+        eventManager.players[eventManager.actual].waypoints = 24;
 }
 
 function run() {

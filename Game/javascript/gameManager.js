@@ -47,7 +47,7 @@ class GameManager{
         this.player_2.draw(this.ctx);
         this.draw(this.ctx);
         $('#pl1a').val('Army: ' + this.eventManager.players[eventManager.actual].army + ' ' + 'Gold: ' + this.eventManager.players[eventManager.actual].gold);
-        $('#pl1b').val('Steps: ' + this.eventManager.players[eventManager.actual].waypoints + '/16');
+        $('#pl1b').val('Steps: ' + this.eventManager.players[eventManager.actual].waypoints + '/24');
     }
 
     play(){
