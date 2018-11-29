@@ -7,6 +7,23 @@ var eventManager = {
   setup: function () {
       document.body.addEventListener("keydown", this.onKeyDown);
   },
+    pvp: function (vsIndex){
+      let player1 = eventManager.players[eventManager.actual];
+      let player2 = eventManager.players[vsIndex];
+
+      let losses = Math.floor(player2.army * Math.round(Math.random() + 1));
+      eventManager.outcome = losses;
+      eventManager.income = parseInt(player2.gold);
+      if (losses >= player1.army)
+          losses = 'EVERYTHING';
+      else losses += ' of your units';
+
+      $('#modal_pvp').show();
+      $('#4').text('against Player ' + vsIndex + ' for ' + eventManager.income + ' gold and glory!');
+      $('#5').text('You may loose ' + losses);
+      $('#left2').val('Player Army: ' + player1.army);
+      $('#right2').val('Enemy Army: ' + player2.army);
+    },
     fight: function (pos_x, pos_y, army) {
         eventManager.curPos.x = pos_x;
         eventManager.curPos.y = pos_y;
@@ -19,7 +36,7 @@ var eventManager = {
             losses = 'EVERYTHING';
         else losses += ' of your units';
         $('#modal').show();
-        $('#1').text('aginst ' + eventManager.guard.name + ' for ' + eventManager.treasure.ammount + ' gold');
+        $('#1').text('against ' + eventManager.guard.name + ' for ' + eventManager.treasure.ammount + ' gold');
         $('#2').text('You may loose ' + losses);
         $('#left').val('Player Army: ' + army);
         $('#right').val('Enemy Army: ' + eventManager.guard.ammount);
@@ -36,6 +53,7 @@ var eventManager = {
                   if (physicsManager.isClaimed(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y)){
                       eventManager.fight(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y, eventManager.players[eventManager.actual].army);
                   }
+                  eventManager.checkForPvp();
               }
           }
           this.preventOtherActions = false;
@@ -51,6 +69,7 @@ var eventManager = {
                   if (physicsManager.isClaimed(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y)){
                       eventManager.fight(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y, eventManager.players[eventManager.actual].army);
                   }
+                  eventManager.checkForPvp();
               }
           }
           this.preventOtherActions = false;
@@ -66,6 +85,7 @@ var eventManager = {
                   if (physicsManager.isClaimed(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y)){
                       eventManager.fight(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y, eventManager.players[eventManager.actual].army);
                   }
+                  eventManager.checkForPvp();
               }
           }
           this.preventOtherActions = false;
@@ -81,9 +101,17 @@ var eventManager = {
                   if (physicsManager.isClaimed(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y)){
                       eventManager.fight(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y, eventManager.players[eventManager.actual].army);
                   }
+                  eventManager.checkForPvp();
               }
           }
           this.preventOtherActions = false;
+      }
+  },
+  checkForPvp: function () {
+      let check = physicsManager.isOtherPlayerPos(eventManager.players[eventManager.actual].pos_x, eventManager.players[eventManager.actual].pos_y)
+      if (check !== null){
+          eventManager.versus = check;
+          eventManager.pvp(check);
       }
   }
 };
@@ -111,6 +139,7 @@ function run() {
     eventManager.players[eventManager.actual].pos_x = eventManager.prevPos.x;
     eventManager.players[eventManager.actual].pos_y = eventManager.prevPos.y;
     $('#modal').hide();
+    $('#modal_pvp').hide();
 }
 
 function attack() {
@@ -128,6 +157,23 @@ function attack() {
         game.eraseentity(eventManager.treasure.pos_x, eventManager.treasure.pos_y);
         game.physicsManager.unclaimPosition(eventManager.guard.pos_x, eventManager.guard.pos_y);
         game.physicsManager.unclaimPosition(eventManager.treasure.pos_x, eventManager.treasure.pos_y);
+    }
+}
+
+function attack_pvp() {
+    eventManager.players[eventManager.actual].army -= eventManager.outcome;
+    eventManager.players[eventManager.actual].gold += eventManager.income;
+    eventManager.players[eventManager.actual].pos_x = eventManager.curPos.x;
+    eventManager.players[eventManager.actual].pos_y = eventManager.curPos.y;
+    $('#modal_pvp').hide();
+
+    if (eventManager.players[eventManager.actual].army <= 0) {
+        $('#modal_end').show();
+        $('#3').text('Player ' + eventManager.actual+1 + ' defeated!')
+    } else
+    {
+        $('#modal_end').show();
+        $('#3').text('Player ' + eventManager.versus + ' defeated!')
     }
 }
 

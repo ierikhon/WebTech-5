@@ -138,7 +138,7 @@ var mapManager = {
             }, 100);
         } else {
             try {
-                for (let i=0; i<20; i++) {
+                for (let i=0; i<15; i++) {
                     var obj = Object.create(game.factory['Gold']);
                     var guard = Object.create(game.factory['Skeleton']);
                     obj.name = 'gold'+i;

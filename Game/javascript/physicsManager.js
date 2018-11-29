@@ -36,6 +36,13 @@ var physicsManager = {
         }
         return isHere;
     },
+    isOtherPlayerPos: function(x, y){
+       for (let index in eventManager.players)
+           if (index != eventManager.actual && x == eventManager.players[index].pos_x && y == eventManager.players[index].pos_y)
+               return index;
+        return null;
+    }
+    ,
     unclaimPosition: function (x, y) {
         for (let index in this.claimedPositions){
             if (this.claimedPositions[index].x === x && this.claimedPositions[index].y === y){
